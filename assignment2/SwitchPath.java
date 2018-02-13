@@ -112,7 +112,7 @@ class SwitchPath extends Path {
     }
 
     // Handle a mouse click.  This will toggle the direction of the switch.
-    public boolean handleEvent (Event evt) {
+    public boolean handleEvent(Event evt) {
         Object target = evt.target;
 
         if (evt.id == Event.MOUSE_DOWN && !occupied()) {
@@ -135,23 +135,27 @@ class SwitchPath extends Path {
         // Draw current direction of the switch darker.
         if (goingStraight) {
             g2.setColor(Color.lightGray);
-            g2.drawArc( (int)(x3*b.width), (int)(y3*b.height),
+            g2.drawArc((int) (x3 * b.width), (int) (y3 * b.height),
                     b.width, b.height, startAngle, arcAngle);
             g2.setColor(c);
-            g2.drawLine( (int)(x1*b.width), (int)(y1*b.height),
-                    (int)(x2*b.width), (int)(y2*b.height));
+            g2.drawLine((int) (x1 * b.width), (int) (y1 * b.height),
+                    (int) (x2 * b.width), (int) (y2 * b.height));
         } else {
             g2.setColor(Color.lightGray);
-            g2.drawLine( (int)(x1*b.width), (int)(y1*b.height),
-                    (int)(x2*b.width), (int)(y2*b.height));
+            g2.drawLine((int) (x1 * b.width), (int) (y1 * b.height),
+                    (int) (x2 * b.width), (int) (y2 * b.height));
             g2.setColor(c);
-            g2.drawArc( (int)(x3*b.width), (int)(y3*b.height),
+            g2.drawArc((int) (x3 * b.width), (int) (y3 * b.height),
                     b.width, b.height, startAngle, arcAngle);
         }
 
         super.draw(g);
     }
 
-    public String toString() { return "SwitchPath"; };
+    public String toString() {
+        return "SwitchPath";
+    }
+
+    ;
 }
 

@@ -8,22 +8,21 @@ one path piece in the current direction.
 
 */
 
-public class Person extends Thread
-{
+public class Person extends Thread {
 
     private int totalWeight;    // The sum of the weights of my cars.
     private int delay;          // The amount of time between each of my turns.
     private boolean forward;    // Whether I am moving forward.
-    
+
     protected TreasureHunter treasureHunter;      // The TreasureHunter this person represents.
 
     protected Map theMap;   // The Map on which I am running.
-        
+
     public Person(String threadName, int id) {
         super(threadName);
         treasureHunter = new TreasureHunter(id);
     }
-    
+
     // Set my delay between moves to d.
     public void setSpeed(int d) {
         delay = d;
@@ -38,8 +37,11 @@ public class Person extends Thread
     }
 
     // Add me to Map T at location loc moving in direction dir.
-    public void addToPath(Map T, Direction dir, GridLoc loc) {};
-    
+    public void addToPath(Map T, Direction dir, GridLoc loc) {
+    }
+
+    ;
+
     // Halve my delay.
     public void accelerateALot() {
         delay /= 2;
@@ -63,11 +65,14 @@ public class Person extends Thread
     public void run() {
         while (true) {
             treasureHunter.move();
-            
+
             // Sleep for 1 second.
-            try {sleep(delay);} catch (InterruptedException e) {}
+            try {
+                sleep(delay);
+            } catch (InterruptedException e) {
+            }
         }
     }
-    
+
 }
 

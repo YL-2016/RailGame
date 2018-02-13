@@ -5,9 +5,8 @@ which must be opposite each other.
 
 */
 
-class EWPath extends StraightPath
-{
-    
+class EWPath extends StraightPath {
+
     public EWPath(GridLoc loc, Map T) {
         super(new Direction("east"), new Direction("west"), loc, T);
         setLoc(loc);
@@ -16,7 +15,7 @@ class EWPath extends StraightPath
     public EWPath(Map T) {
         super(new Direction("east"), new Direction("west"), T);
     }
-    
+
     public void setLoc(GridLoc loc) {
         super.setLoc(loc);
         x1 = 0.0;
@@ -25,6 +24,10 @@ class EWPath extends StraightPath
         y2 = 0.5;
     }
 
-    public String toString() { return "EWPath"; };
+    public String toString() {
+        return "EWPath";
+    }
+
+    ;
 }
 

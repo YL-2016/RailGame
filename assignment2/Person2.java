@@ -8,8 +8,7 @@ one path piece in the current direction.
 
 */
 
-public class Person2 extends Person
-{
+public class Person2 extends Person {
 
     public Person2(int id) {
         super("Person 2", id);

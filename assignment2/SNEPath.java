@@ -5,9 +5,8 @@ which must be opposite each other.
 
 */
 
-class SNEPath extends SwitchPath
-{
-    
+class SNEPath extends SwitchPath {
+
     public SNEPath(GridLoc loc, Map T) {
         super(new Direction("south"), new Direction("north"), new Direction("east"), loc, T);
         setLoc(loc);
@@ -18,7 +17,7 @@ class SNEPath extends SwitchPath
         super(new Direction("south"), new Direction("north"), new Direction("east"), T);
         startAngle = 90;
     }
-    
+
     public void setLoc(GridLoc loc) {
         super.setLoc(loc);
         x1 = 0.5;
@@ -29,7 +28,11 @@ class SNEPath extends SwitchPath
         y3 = 0.5;
     }
 
-    public String toString() { return "SNEPath"; };
+    public String toString() {
+        return "SNEPath";
+    }
+
+    ;
 
 }
 

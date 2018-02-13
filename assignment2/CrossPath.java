@@ -6,21 +6,20 @@ The CrossPath class.  A CrossPath object has four ends.
 
 */
 
-class CrossPath extends Path
-{
-    
+class CrossPath extends Path {
+
     // My line coordinates for drawing myself.
     protected double x1, y1, x2, y2, x3, y3, x4, y4;
-    
+
     // (end1,end2) and (end3,end4) are the two pairs.
     // The are, in order, always 'north', 'south', 'east', and 'west'.
     protected Direction end1, end2, end3, end4;
-    
+
     protected Path neighbour1;  // The Path in the direction end1.
     protected Path neighbour2;  // The Path in the direction end2.
     protected Path neighbour3;  // The Path in the direction end3.
     protected Path neighbour4;  // The Path in the direction end4.
-    
+
     public boolean exitOK(Direction d) {
         return d.equals(end1) || d.equals(end2) || d.equals(end3) || d.equals(end4);
     }
@@ -31,13 +30,13 @@ class CrossPath extends Path
         if (!exitOK(d)) {
             System.err.print("exit(): Not a valid dir for this piece: ");
             System.err.println(end1.direction + " " + end2.direction + " " + d.direction);
-Exception e = new Exception();
-e.printStackTrace(System.out);
+            Exception e = new Exception();
+            e.printStackTrace(System.out);
             return false;
         }
         return true;
     }
-    
+
     public CrossPath(Map T) {
         super(T);
 
@@ -73,7 +72,7 @@ e.printStackTrace(System.out);
         x4 = 0.5;
         y4 = 1.0;
     }
-    
+
 
     public void register(Path r, Direction d) {
         if (validDir(d)) {
@@ -88,8 +87,8 @@ e.printStackTrace(System.out);
             }
         }
     }
-    
-    
+
+
     public void unRegister(Direction d) {
         if (validDir(d)) {
             if (d.equals(end1)) {
@@ -118,7 +117,7 @@ e.printStackTrace(System.out);
                 return end3;
             }
         }
-        
+
         return null;
     }
 
@@ -136,7 +135,7 @@ e.printStackTrace(System.out);
                 return neighbour3;
             }
         }
-        
+
         return null;
     }
 
@@ -148,14 +147,18 @@ e.printStackTrace(System.out);
 
         g.setColor(c);
         Rectangle b = bounds();
-        g.drawLine( (int)(x1*b.width), (int)(y1*b.height),
-                    (int)(x2*b.width), (int)(y2*b.height));
-        g.drawLine( (int)(x3*b.width), (int)(y3*b.height),
-                    (int)(x4*b.width), (int)(y4*b.height));
+        g.drawLine((int) (x1 * b.width), (int) (y1 * b.height),
+                (int) (x2 * b.width), (int) (y2 * b.height));
+        g.drawLine((int) (x3 * b.width), (int) (y3 * b.height),
+                (int) (x4 * b.width), (int) (y4 * b.height));
 
         super.draw(g);
-    } 
-        
-    public String toString() { return "CrossPath"; };
+    }
+
+    public String toString() {
+        return "CrossPath";
+    }
+
+    ;
 }
 

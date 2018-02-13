@@ -7,8 +7,7 @@ has zero or more people in it.
 
 import java.awt.*;
 
-public class Map extends Frame
-{
+public class Map extends Frame {
     // The Panel on which the Map appears.
     MapPanel mapPanel;
 
@@ -16,14 +15,14 @@ public class Map extends Frame
     // The following items are the Paths and TreasureHunters on the Map.
 
     private Path first;    // The first Path in the graph.
-    
+
     // The maximum number of people I can hold.
     private int MAX_PATHS = 10;
     private Object[] personList = new Object[MAX_PATHS]; // The people running on me.
     private int numPersons = 0;
-    
+
     private Path[][] paths;    // The grid of paths.
-    
+
     // Whether my TreasureHunters are running.  If true, no more Paths can be placed.
     private boolean running = false;
 
@@ -37,12 +36,12 @@ public class Map extends Frame
 
     // The following label is used to display the scores of the TreasureHunters.
     private Label statusLabel;
-    
+
     // Add the buttons for placing Paths.
     protected void buildPath() {
         mapPanel = new MapPanel();
         add("Center", mapPanel);
-        
+
         runStopButton = new Button("Run");
         quitButton = new Button("Quit");
         accelButton = new Button("Accelerate");
@@ -70,60 +69,60 @@ public class Map extends Frame
     }
 
     // Read Path-placing commands from the user.
-    public boolean handleEvent (Event evt) {
+    public boolean handleEvent(Event evt) {
         Object target = evt.target;
-        
+
         if (evt.id == Event.ACTION_EVENT) {
             if (target instanceof Button) {
                 if ("Run".equals(evt.arg)) {
                     running = true;
                     for (int i = 0; i < numPersons; i++) {
-                        ((Person)personList[i]).start();
+                        ((Person) personList[i]).start();
                     }
-                    ((Button)target).setLabel("Suspend");
+                    ((Button) target).setLabel("Suspend");
                 } else if ("Suspend".equals(evt.arg)) {
                     for (int i = 0; i < numPersons; i++) {
-                        ((Person)personList[i]).suspend();
+                        ((Person) personList[i]).suspend();
                     }
                     running = false;
-                    ((Button)target).setLabel("Resume");
+                    ((Button) target).setLabel("Resume");
                 } else if ("Resume".equals(evt.arg)) {
                     for (int i = 0; i < numPersons; i++) {
-                        ((Person)personList[i]).resume();
+                        ((Person) personList[i]).resume();
                     }
                     running = false;
-                    ((Button)target).setLabel("Suspend");
+                    ((Button) target).setLabel("Suspend");
                 } else if ("Accelerate".equals(evt.arg)) {
                     for (int i = 0; i < numPersons; i++) {
-                        ((Person)personList[i]).accelerate();
+                        ((Person) personList[i]).accelerate();
                     }
                 } else if ("Decelerate".equals(evt.arg)) {
                     for (int i = 0; i < numPersons; i++) {
-                        ((Person)personList[i]).decelerate();
+                        ((Person) personList[i]).decelerate();
                     }
                 } else if ("Accelerate A Lot".equals(evt.arg)) {
                     for (int i = 0; i < numPersons; i++) {
-                        ((Person)personList[i]).accelerateALot();
+                        ((Person) personList[i]).accelerateALot();
                     }
                 } else if ("Decelerate A Lot".equals(evt.arg)) {
                     for (int i = 0; i < numPersons; i++) {
-                        ((Person)personList[i]).decelerateALot();
+                        ((Person) personList[i]).decelerateALot();
                     }
                 } else if ("Quit".equals(evt.arg)) {
                     for (int i = 0; i < numPersons; i++) {
-                        ((Person)personList[i]).stop();
+                        ((Person) personList[i]).stop();
                     }
                     running = false;
-		    System.exit(0);
+                    System.exit(0);
                 }
                 return true;
             }
         }
-        
+
         // If we get this far, I couldn't handle the event
         return false;
     }
-        
+
 
     // If test and r1 != null and r1.exitOK(r1), connect or unrester
     // r1 and r2 depending on whether r2's exits match r1's.
@@ -140,33 +139,33 @@ public class Map extends Frame
     // Connect the Path at (row,col) to its neighbours.
     protected void connectPath(int row, int col) {
         Path r = paths[row][col];
-        
+
         Direction north = new Direction("north");
         Direction south = new Direction("south");
         Direction east = new Direction("east");
         Direction west = new Direction("west");
-        
+
         if (r != null) {
-            Path rN = row > 0 ? paths[row-1][col] : null;
-            Path rS = row < paths.length-1 ? paths[row+1][col] : null;
-            Path rE = col < paths[0].length-1 ? paths[row][col+1] : null;
-            Path rW = col > 0 ? paths[row][col-1] : null;
-            
+            Path rN = row > 0 ? paths[row - 1][col] : null;
+            Path rS = row < paths.length - 1 ? paths[row + 1][col] : null;
+            Path rE = col < paths[0].length - 1 ? paths[row][col + 1] : null;
+            Path rW = col > 0 ? paths[row][col - 1] : null;
+
             registerOrUnRegister(row > 0, rN, r, south);
-            registerOrUnRegister(row < paths.length-1, rS, r, north);
+            registerOrUnRegister(row < paths.length - 1, rS, r, north);
             registerOrUnRegister(col > 0, rW, r, east);
-            registerOrUnRegister(col < paths[0].length-1, rE, r, west);
+            registerOrUnRegister(col < paths[0].length - 1, rE, r, west);
         }
     }
-    
-    
+
+
     // Connect paths r1 and r2; r2 is in direction d from r1.
     protected void connectPaths(Path r1, Path r2, Direction d) {
         r1.register(r2, d);
         r2.register(r1, d.opposite());
     }
-    
-    
+
+
     // Add e to the path at location loc.
     public void addCar(GridLoc loc, TreasureHunter e) {
         paths[loc.row][loc.col].enter(e);
@@ -176,7 +175,7 @@ public class Map extends Frame
     // paint
     // ------------------------------------------------------------------
     // Paint the display.
-    
+
     public void paint(Graphics g) {
         update(g);
     }
@@ -184,9 +183,9 @@ public class Map extends Frame
     // update
     // ------------------------------------------------------------------
     // Update the display; tell all my Paths to update themselves.
-    
+
     public void update(Graphics g) {
-    
+
         mapPanel.repaint();
     }
 
@@ -201,13 +200,13 @@ public class Map extends Frame
         paths = new Path[10][10];
 
         buildPath();
-        
+
         for (int row = 0; row < paths.length; row++) {
             for (int col = 0; col < paths[0].length; col++) {
                 paths[row][col] = new EmptyPath(this);
             }
         }
-            
+
         paths[0][0] = new SEPath(new GridLoc(0, 0), this);
 
         paths[0][1] = new EWPath(new GridLoc(0, 1), this);
@@ -218,75 +217,75 @@ public class Map extends Frame
 
         paths[1][2] = new NSPath(new GridLoc(1, 2), this);
         connectPaths(paths[0][2], paths[1][2], new Direction("south"));
-        
+
         paths[2][2] = new CrossPath(new GridLoc(2, 2), this);
         connectPaths(paths[1][2], paths[2][2], new Direction("south"));
-        
+
         paths[2][3] = new EWPath(new GridLoc(2, 3), this);
         connectPaths(paths[2][2], paths[2][3], new Direction("east"));
-        
+
         paths[2][4] = new EWPath(new GridLoc(2, 4), this);
         connectPaths(paths[2][3], paths[2][4], new Direction("east"));
-        
+
         paths[2][5] = new CrossPath(new GridLoc(2, 5), this);
         connectPaths(paths[2][4], paths[2][5], new Direction("east"));
-        
+
         paths[2][6] = new SWPath(new GridLoc(2, 6), this);
         connectPaths(paths[2][5], paths[2][6], new Direction("east"));
-        
+
         paths[3][6] = new NWPath(new GridLoc(3, 6), this);
         connectPaths(paths[2][6], paths[3][6], new Direction("south"));
-        
+
         paths[3][5] = new NEPath(new GridLoc(3, 5), this);
         connectPaths(paths[3][6], paths[3][5], new Direction("west"));
         connectPaths(paths[2][5], paths[3][5], new Direction("south"));
-        
+
         paths[1][5] = new SEPath(new GridLoc(1, 5), this);
         connectPaths(paths[2][5], paths[1][5], new Direction("north"));
-        
+
         paths[1][6] = new EWPath(new GridLoc(1, 6), this);
         connectPaths(paths[1][5], paths[1][6], new Direction("east"));
-        
+
         paths[1][7] = new SWPath(new GridLoc(1, 7), this);
         connectPaths(paths[1][6], paths[1][7], new Direction("east"));
-        
+
         paths[2][7] = new NSPath(new GridLoc(2, 7), this);
         connectPaths(paths[1][7], paths[2][7], new Direction("south"));
-        
+
         paths[3][7] = new NSPath(new GridLoc(3, 7), this);
         connectPaths(paths[2][7], paths[3][7], new Direction("south"));
-        
+
         paths[4][7] = new NWPath(new GridLoc(4, 7), this);
         connectPaths(paths[3][7], paths[4][7], new Direction("south"));
-        
+
         paths[4][6] = new EWPath(new GridLoc(4, 6), this);
         connectPaths(paths[4][7], paths[4][6], new Direction("west"));
-        
+
         paths[4][5] = new WESPath(new GridLoc(4, 5), this);
         connectPaths(paths[4][6], paths[4][5], new Direction("west"));
-        
+
         paths[4][4] = new NEPath(new GridLoc(4, 4), this);
         connectPaths(paths[4][5], paths[4][4], new Direction("west"));
-        
+
         paths[3][4] = new SWPath(new GridLoc(3, 4), this);
         connectPaths(paths[4][4], paths[3][4], new Direction("north"));
-        
+
         paths[3][3] = new EWSPath(new GridLoc(3, 3), this);
         connectPaths(paths[3][4], paths[3][3], new Direction("west"));
 
         paths[4][3] = new SNWPath(new GridLoc(4, 3), this);
         connectPaths(paths[4][3], paths[3][3], new Direction("north"));
-        
+
         paths[5][3] = new NEPath(new GridLoc(5, 3), this);
         connectPaths(paths[5][3], paths[4][3], new Direction("north"));
-        
+
         paths[5][4] = new EWPath(new GridLoc(5, 4), this);
         connectPaths(paths[5][4], paths[5][3], new Direction("west"));
-        
+
         paths[5][5] = new NWPath(new GridLoc(5, 5), this);
         connectPaths(paths[5][5], paths[5][4], new Direction("west"));
         connectPaths(paths[5][5], paths[4][5], new Direction("north"));
-        
+
         // These are just put there to see what they look like.
 //        paths[6][0] = new EWNPath(new GridLoc(6, 0), this);
 //        paths[6][1] = new EWSPath(new GridLoc(6, 1), this);
@@ -297,9 +296,8 @@ public class Map extends Frame
 //        paths[6][6] = new SNEPath(new GridLoc(6, 6), this);
 //        paths[6][7] = new SNWPath(new GridLoc(6, 7), this);
 // ------------------------------------------------------------------------------
-        
-       
-        
+
+
         paths[3][2] = new CrossPath(new GridLoc(3, 2), this);
         connectPaths(paths[3][3], paths[3][2], new Direction("west"));
         connectPaths(paths[2][2], paths[3][2], new Direction("south"));
@@ -314,7 +312,7 @@ public class Map extends Frame
         paths[3][1] = new SEPath(new GridLoc(3, 1), this);
         connectPaths(paths[3][2], paths[3][1], new Direction("west"));
         connectPaths(paths[3][1], paths[4][1], new Direction("south"));
-        
+
         paths[2][1] = new EWPath(new GridLoc(2, 1), this);
         connectPaths(paths[2][2], paths[2][1], new Direction("west"));
 
@@ -328,21 +326,21 @@ public class Map extends Frame
         spawnTreasure(5, 3);
 
         mapPanel.addToPanel(paths);
-        mapPanel.setBackground(new Color(152,251,152));
+        mapPanel.setBackground(new Color(152, 251, 152));
     }
 
 
-    public void updateStatusBar(){
-        System.out.println(((Person)personList[0]).getScore());
-        System.out.println(((Person)personList[1]).getScore());
-        statusLabel.setText("Player 1: " + ((Person)personList[0]).getScore() +
-                " --- Player 2: " + ((Person)personList[1]).getScore());
+    public void updateStatusBar() {
+        System.out.println(((Person) personList[0]).getScore());
+        System.out.println(((Person) personList[1]).getScore());
+        statusLabel.setText("Player 1: " + ((Person) personList[0]).getScore() +
+                " --- Player 2: " + ((Person) personList[1]).getScore());
 
         statusLabel.repaint();
     }
 
     // Spawn treasure in a random location on the path
-    public void spawnTreasure(){
+    public void spawnTreasure() {
         int row, col;
         //find suitable place for treasure to respawn
         do {
@@ -350,12 +348,12 @@ public class Map extends Frame
             col = (int) (Math.random() * 10);
 
             System.out.println("Selected Row: " + row + " Col: " + col);
-        } while((paths[row][col] instanceof EmptyPath));
+        } while ((paths[row][col] instanceof EmptyPath));
 
         spawnTreasure(row, col);
     }
 
-    public void spawnTreasure(int row, int col){
+    public void spawnTreasure(int row, int col) {
         paths[row][col].hT = true;
         paths[row][col].repaint();
     }

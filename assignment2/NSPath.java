@@ -5,18 +5,17 @@ which must be opposite each other.
 
 */
 
-class NSPath extends StraightPath
-{
-    
+class NSPath extends StraightPath {
+
     public NSPath(GridLoc loc, Map T) {
         super(new Direction("north"), new Direction("south"), loc, T);
         setLoc(loc);
     }
-    
+
     public NSPath(Map T) {
         super(new Direction("north"), new Direction("south"), T);
     }
-    
+
     public void setLoc(GridLoc loc) {
         super.setLoc(loc);
         x1 = 0.5;
@@ -25,6 +24,10 @@ class NSPath extends StraightPath
         y2 = 1.0;
     }
 
-    public String toString() { return "NSPath"; };
+    public String toString() {
+        return "NSPath";
+    }
+
+    ;
 }
 

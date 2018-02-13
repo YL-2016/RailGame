@@ -4,9 +4,8 @@ The NSEPath class.  An NSEPath object has three exits.
 
 */
 
-class NSEPath extends SwitchPath
-{
-    
+class NSEPath extends SwitchPath {
+
     public NSEPath(GridLoc loc, Map T) {
         super(new Direction("north"), new Direction("south"), new Direction("east"), loc, T);
         setLoc(loc);
@@ -17,7 +16,7 @@ class NSEPath extends SwitchPath
         super(new Direction("north"), new Direction("south"), new Direction("east"), T);
         startAngle = 180;
     }
-    
+
     public void setLoc(GridLoc loc) {
         super.setLoc(loc);
         x1 = 0.5;
@@ -28,6 +27,10 @@ class NSEPath extends SwitchPath
         y3 = -0.5;
     }
 
-    public String toString() { return "NSEPath"; };
+    public String toString() {
+        return "NSEPath";
+    }
+
+    ;
 }
 

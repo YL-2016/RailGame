@@ -10,9 +10,8 @@ is.
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
-class Path extends Canvas
-{
-    
+class Path extends Canvas {
+
     // The amount of space in which Paths have to draw themselves.
     public static int size = 20;
 
@@ -24,13 +23,13 @@ class Path extends Canvas
     protected Map theMap; // theMap
 
     // True if a person entered or left. Used to speed up redrawing.
-    public boolean stateChanged=true;
-    
+    public boolean stateChanged = true;
+
     public Path(GridLoc loc, Map T) {
         location = loc;
         iO = false;
         theMap = T;
-    } 
+    }
 
     public Path(Map T) {
         super();
@@ -38,20 +37,20 @@ class Path extends Canvas
         theMap = T;
         Rectangle b = bounds();
         resize(size, size);
-    } 
+    }
 
     // Return true iff there is a treasure hunter on me.
-    public boolean occupied () {
+    public boolean occupied() {
         return iO;
     }
 
     public void setLoc(GridLoc loc) {
         location = loc;
-    } 
+    }
 
-    public GridLoc getLoc () {
+    public GridLoc getLoc() {
         return location;
-    } 
+    }
 
     // Redraw myself.
     public void draw(Graphics g) {
@@ -60,20 +59,20 @@ class Path extends Canvas
         Rectangle b = bounds();
         g2.setStroke(new BasicStroke(1));
         g2.setColor(Color.lightGray);
-        g2.drawRect(0, 0, b.width-1, b.height-1);
+        g2.drawRect(0, 0, b.width - 1, b.height - 1);
         g2.setStroke(new BasicStroke(12));
 
         if (iO) {
             cTH.draw(g2);
         }
 
-        if (hT){
-            Ellipse2D circle = new Ellipse2D.Double(b.width/3, b.height/3, b.width/2, b.height/2);
+        if (hT) {
+            Ellipse2D circle = new Ellipse2D.Double(b.width / 3, b.height / 3, b.width / 2, b.height / 2);
             g2.setColor(Color.YELLOW);
             g2.fill(circle);
         }
     }
-        
+
     // Register that a Person is on me.  Return true if successful,
     // false otherwise.
     public boolean enter(TreasureHunter newTreasureHunter) {
@@ -102,36 +101,57 @@ class Path extends Canvas
 
         if (iO) {
             repaint();
-        }
-        else {
+        } else {
             repaint();
         }
     }
-        
+
     // Update my display.
     public void paint(Graphics g) {
         draw(g);
     }
-        
+
     // Return true if d is a valid direction for me.
-    public boolean exitOK(Direction d) {return false;};
-        
+    public boolean exitOK(Direction d) {
+        return false;
+    }
+
+    ;
+
     // Register that Path r is in Direction d.
-    public void register(Path r, Direction d){};
+    public void register(Path r, Direction d) {
+    }
+
+    ;
 
     // Register that there is no Path in Direction d.
-    public void unRegister(Direction d) {};
+    public void unRegister(Direction d) {
+    }
+
+    ;
 
     // Given that d is the Direction from which a TreasureHunter entered,
     // report where the TreasureHunter will exit.
-    public Direction exit(Direction d) {return null;};
+    public Direction exit(Direction d) {
+        return null;
+    }
+
+    ;
 
     // Given that d is the Direction from which a TreasureHunter entered,
     // report which Path is next.
-    public Path nextPath(Direction d) {return null;};
+    public Path nextPath(Direction d) {
+        return null;
+    }
+
+    ;
 
     // Return myself as a string.
-    public String toString() { return "Path"; };
+    public String toString() {
+        return "Path";
+    }
+
+    ;
 
 }
 

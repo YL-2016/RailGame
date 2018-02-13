@@ -4,9 +4,8 @@ The NSWPath class.  An NSWPath object has three ends.
 
 */
 
-class NSWPath extends SwitchPath
-{
-    
+class NSWPath extends SwitchPath {
+
     public NSWPath(GridLoc loc, Map T) {
         super(new Direction("north"), new Direction("south"), new Direction("west"), loc, T);
         setLoc(loc);
@@ -17,7 +16,7 @@ class NSWPath extends SwitchPath
         super(new Direction("north"), new Direction("south"), new Direction("west"), T);
         startAngle = 270;
     }
-    
+
     public void setLoc(GridLoc loc) {
         super.setLoc(loc);
         x1 = 0.5;
@@ -28,6 +27,10 @@ class NSWPath extends SwitchPath
         y3 = -0.5;
     }
 
-    public String toString() { return "NSWPath"; };
+    public String toString() {
+        return "NSWPath";
+    }
+
+    ;
 }
 

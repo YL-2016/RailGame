@@ -7,8 +7,7 @@ which must be not be opposite each other.
 
 */
 
-class CornerPath extends TwoEndPath
-{
+class CornerPath extends TwoEndPath {
 
     // The multipliers for the width and height.
     double x1, y1;
@@ -29,11 +28,15 @@ class CornerPath extends TwoEndPath
 
         g2.setColor(c);
         Rectangle b = bounds();
-        g2.drawArc((int)(x1*b.width), (int)(y1*b.height), b.width, b.height, startAngle, arcAngle);
+        g2.drawArc((int) (x1 * b.width), (int) (y1 * b.height), b.width, b.height, startAngle, arcAngle);
 
         super.draw(g);
     }
 
-    public String toString() { return "CornerPath"; };
+    public String toString() {
+        return "CornerPath";
+    }
+
+    ;
 }
 

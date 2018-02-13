@@ -8,11 +8,11 @@ which may or may be not be opposite each other.
 import java.awt.*;
 
 class TwoEndPath extends Path {
-    
+
     protected Direction end1, end2;
     protected Path neighbour1;  // The Path in the direction end1.
     protected Path neighbour2;  // The Path in the direction end2.
-    
+
     public boolean exitOK(Direction d) {
         return d.equals(end1) || d.equals(end2);
     }
@@ -29,14 +29,14 @@ class TwoEndPath extends Path {
         }
         return true;
     }
-    
+
     public TwoEndPath(Direction e1, Direction e2, GridLoc loc, Map T) {
         super(loc, T);
         c = Color.orange;
         end1 = e1;
         end2 = e2;
     }
-    
+
 
     public TwoEndPath(Direction e1, Direction e2, Map T) {
         super(T);
@@ -44,7 +44,7 @@ class TwoEndPath extends Path {
         end1 = e1;
         end2 = e2;
     }
-    
+
 
     // Register that r is adjacent to me from direction d.
     public void register(Path r, Direction d) {
@@ -72,10 +72,10 @@ class TwoEndPath extends Path {
     public Direction exit(Direction d) {
         if (validDir(d)) {
             return d.equals(end1)
-                ? end2
-                : end1;
+                    ? end2
+                    : end1;
         }
-        
+
         return null;
     }
 
@@ -84,13 +84,17 @@ class TwoEndPath extends Path {
     public Path nextPath(Direction d) {
         if (validDir(d)) {
             return d.equals(end1)
-                ? neighbour2
-                : neighbour1;
+                    ? neighbour2
+                    : neighbour1;
         }
-        
+
         return null;
     }
 
-    public String toString() { return "TwoEndPath"; };
+    public String toString() {
+        return "TwoEndPath";
+    }
+
+    ;
 }
 

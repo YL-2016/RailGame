@@ -5,7 +5,7 @@ The WENPath class.  An WENPath object has three ends.
 */
 
 class WENPath extends SwitchPath {
-    
+
     public WENPath(GridLoc loc, Map T) {
         super(new Direction("west"), new Direction("east"), new Direction("north"), loc, T);
         setLoc(loc);
@@ -16,7 +16,7 @@ class WENPath extends SwitchPath {
         super(new Direction("west"), new Direction("east"), new Direction("north"), T);
         startAngle = 270;
     }
-    
+
     public void setLoc(GridLoc loc) {
         super.setLoc(loc);
         x1 = 0.0;
@@ -27,6 +27,10 @@ class WENPath extends SwitchPath {
         y3 = -0.5;
     }
 
-    public String toString() { return "WENPath"; };
+    public String toString() {
+        return "WENPath";
+    }
+
+    ;
 }
 
