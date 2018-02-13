@@ -10,3 +10,11 @@ Created this file.
 Code affected: all .java files
 
 Reformatted using the Google Java style formatter.
+##################
+# Step 3
+
+Code affected: Path.leave
+
+Flaw: unnecessary if, leading to duplicate code.
+
+Fix: replaced if statement with a single assignment statement.

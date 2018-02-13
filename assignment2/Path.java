@@ -98,12 +98,7 @@ class Path extends Canvas {
     // Register that a Person is no longer on me.
     public void leave() {
         iO = false;
-
-        if (iO) {
-            repaint();
-        } else {
-            repaint();
-        }
+        repaint();
     }
 
     // Update my display.
