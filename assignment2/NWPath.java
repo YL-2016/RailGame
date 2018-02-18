@@ -14,22 +14,17 @@ public class NWPath extends CornerPath {
 
 	public NWPath(GridLoc loc, Map T) {
 		super(new Direction("north"), new Direction("west"), loc, T);
-		setLoc(loc);
 		startAngle = 270;
 	}
 
-	public NWPath(Map T) {
-		super(new Direction("north"), new Direction("west"), T);
-		startAngle = 270;
-	}
-
-	public void setLoc(GridLoc loc) {
-		super.setLoc(loc);
+	@Override
+	protected void initCoordinates() {
 		x1 = -0.5;
 		y1 = -0.5;
 	}
 
+	@Override
 	public String toString() {
 		return "NWPath";
-	};
+	}
 }

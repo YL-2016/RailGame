@@ -16,29 +16,43 @@ public class EmptyPath extends Path {
 		super(T);
 	}
 
-	// Return true if d is a valid direction for me.
+	@Override
+	protected void initCoordinates() {
+	}
+
+	@Override
+	protected boolean validDir(Direction d) {
+		return false;
+	}
+
+	@Override
 	public boolean exitOK(Direction d) {
 		return false;
 	}
 
-	// Register that Path r is in Direction d.
+	@Override
 	public void register(Path r, Direction d) {
+		return;
 	}
 
-	// Register that there is no Path in Direction d.
+	@Override
 	public void unRegister(Direction d) {
+		return;
 	}
 
-	// Given that d is the Direction from which a TreasureHunter entered,
-	// report where the TreasureHunter will exit.
+	@Override
 	public Direction exit(Direction d) {
 		return null;
 	}
 
-	// Given that d is the Direction from which a TreasureHunter entered,
-	// report which Path is next.
+	@Override
 	public Path nextPath(Direction d) {
 		return null;
+	}
+
+	@Override
+	public String getDirectionInfo() {
+		return "";
 	}
 
 }

@@ -42,3 +42,11 @@ Code affected: Person.java, Person1.java, Person2.java
 Flaw: Redundant Person1.java and Person2.java for this program
 
 Fix: Remove Person1.java, Person2.java and instance variable(totalWeight, forward) that are not used in Person.java, and implement addToPath() in Person.java
+######### 
+# Step 8
+
+Code affected: Hierarchy type of Path
+
+Flaw: Path should be an abstract class, access control problem
+
+Fix: Make them abstraction(exitOK(), register(), unRegister(), exit(), nextPath(), getDirectionInfo(), initCoordinates())

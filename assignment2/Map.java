@@ -356,7 +356,7 @@ public class Map extends Frame {
 	}
 
 	public void spawnTreasure(int row, int col) {
-		paths[row][col].hT = true;
+		paths[row][col].setHasTreasure(true);
 		paths[row][col].repaint();
 	}
 

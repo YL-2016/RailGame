@@ -7,39 +7,40 @@ import java.awt.*;
 
  */
 
-public class CornerPath extends TwoEndPath {
+public abstract class CornerPath extends TwoEndPath {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 5403618982330364538L;
-	
+
 	// The multipliers for the width and height.
-	double x1, y1;
-	int startAngle, arcAngle = 90;
+	protected double x1, y1;
+	protected int startAngle;
+
+	private int arcAngle;
 
 	public CornerPath(Direction e1, Direction e2, GridLoc loc, Map T) {
 		super(e1, e2, loc, T);
+		arcAngle = 90;
 	}
 
-	public CornerPath(Direction e1, Direction e2, Map T) {
-		super(e1, e2, T);
-	}
-
-	// Redraw myself.
+	@Override
 	public void draw(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setStroke(new BasicStroke(12));
 
-		g2.setColor(c);
-		Rectangle b = bounds();
+		g2.setColor(color);
+		Rectangle b = getBounds();
 		g2.drawArc((int) (x1 * b.width), (int) (y1 * b.height), b.width,
 				b.height, startAngle, arcAngle);
 
 		super.draw(g);
 	}
 
+	@Override
 	public String toString() {
 		return "CornerPath";
-	};
+	}
+	
 }

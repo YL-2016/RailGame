@@ -102,11 +102,7 @@ public class TreasureHunter {
 	public void draw(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 
-		GridLoc myLoc = currentPath.location;
-		Rectangle b = currentPath.bounds();
-
-		// the polygon to draw on the screen.
-		Polygon p;
+		Rectangle b = currentPath.getBounds();
 
 		double width = b.width;
 		double height = b.height;

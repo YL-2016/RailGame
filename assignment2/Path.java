@@ -10,50 +10,51 @@ is.
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
-public class Path extends Canvas {
+public abstract class Path extends Canvas {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 5349427178907982370L;
+	private static final long serialVersionUID = 8969555959818787955L;
 
 	// The amount of space in which Paths have to draw themselves.
-	public static int size = 20;
+	public final static int size = 20;
 
-	protected Color c; // color
-	protected boolean iO; // isOccupied
-	protected boolean hT; // hasTreasure
-	protected TreasureHunter cTH; // currentTreasureHunter
-	protected GridLoc location; // location
-	protected Map theMap; // theMap
+	protected Color color; // color
 
-	// True if a person entered or left. Used to speed up redrawing.
-	public boolean stateChanged = true;
+	private boolean isOccupied; // isOccupied
+	private boolean hasTreasure; // hasTreasure
+	private TreasureHunter currentTreasureHunter; // currentTreasureHunter
+	private GridLoc location; // location
+	private Map theMap; // theMap
+
+	public Path(Map T) {
+		theMap = T;
+		isOccupied = false;
+		setSize(size, size);
+	}
 
 	public Path(GridLoc loc, Map T) {
 		location = loc;
-		iO = false;
 		theMap = T;
+		isOccupied = false;
+		initCoordinates();
 	}
 
-	public Path(Map T) {
-		super();
-		iO = false;
-		theMap = T;
-		Rectangle b = bounds();
-		resize(size, size);
+	public void setHasTreasure(boolean flag) {
+		hasTreasure = flag;
 	}
 
 	// Return true iff there is a treasure hunter on me.
-	public boolean occupied() {
-		return iO;
+	public boolean isOccupied() {
+		return isOccupied;
 	}
 
-	public void setLoc(GridLoc loc) {
+	public void setGridLocation(GridLoc loc) {
 		location = loc;
 	}
 
-	public GridLoc getLoc() {
+	public GridLoc getGridLocation() {
 		return location;
 	}
 
@@ -61,17 +62,18 @@ public class Path extends Canvas {
 	public void draw(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 
-		Rectangle b = bounds();
+		Rectangle b = getBounds();
+
 		g2.setStroke(new BasicStroke(1));
 		g2.setColor(Color.lightGray);
 		g2.drawRect(0, 0, b.width - 1, b.height - 1);
 		g2.setStroke(new BasicStroke(12));
 
-		if (iO) {
-			cTH.draw(g2);
+		if (isOccupied) {
+			currentTreasureHunter.draw(g2);
 		}
 
-		if (hT) {
+		if (hasTreasure) {
 			Ellipse2D circle = new Ellipse2D.Double(b.width / 3, b.height / 3,
 					b.width / 2, b.height / 2);
 			g2.setColor(Color.YELLOW);
@@ -81,35 +83,24 @@ public class Path extends Canvas {
 
 	// Register that a Person is on me. Return true if successful,
 	// false otherwise.
-	public boolean enter(TreasureHunter newTreasureHunter) {
-		iO = true;
-		cTH = newTreasureHunter;
+	public synchronized boolean enter(TreasureHunter newTreasureHunter) {
+		isOccupied = true;
+		currentTreasureHunter = newTreasureHunter;
 
-		if (hT) {
-			System.out.println(cTH.score);
-
-			cTH.score = cTH.score + 1;
-
-			System.out.println(cTH.score);
-
+		if (hasTreasure) {
+			currentTreasureHunter.score = currentTreasureHunter.score + 1;
+			hasTreasure = false;
 			theMap.updateStatusBar();
 			theMap.spawnTreasure();
 		}
-
-		hT = false;
 
 		return true;
 	}
 
 	// Register that a Person is no longer on me.
 	public void leave() {
-		iO = false;
-
-		if (iO) {
-			repaint();
-		} else {
-			repaint();
-		}
+		isOccupied = false;
+		repaint();
 	}
 
 	// Update my display.
@@ -118,33 +109,44 @@ public class Path extends Canvas {
 	}
 
 	// Return true if d is a valid direction for me.
-	public boolean exitOK(Direction d) {
-		return false;
-	};
+	public abstract boolean exitOK(Direction d);
 
 	// Register that Path r is in Direction d.
-	public void register(Path r, Direction d) {
-	};
+	public abstract void register(Path r, Direction d);
 
 	// Register that there is no Path in Direction d.
-	public void unRegister(Direction d) {
-	};
+	public abstract void unRegister(Direction d);
 
 	// Given that d is the Direction from which a TreasureHunter entered,
 	// report where the TreasureHunter will exit.
-	public Direction exit(Direction d) {
-		return null;
-	};
+	public abstract Direction exit(Direction d);
 
 	// Given that d is the Direction from which a TreasureHunter entered,
 	// report which Path is next.
-	public Path nextPath(Direction d) {
-		return null;
-	};
+	public abstract Path nextPath(Direction d);
+
+	public abstract String getDirectionInfo();
+
+	protected abstract void initCoordinates();
+
+	// Return true if d is valid for this Path, return false and
+	// print an error otherwise.
+	protected boolean validDir(Direction d) {
+		if (!exitOK(d)) {
+			System.err.print("exit(): Not a valid dir for this piece: ");
+			System.err.println(getDirectionInfo() + " " + d.direction);
+			Exception e = new Exception();
+			e.printStackTrace(System.out);
+
+			return false;
+		}
+
+		return true;
+	}
 
 	// Return myself as a string.
 	public String toString() {
 		return "Path";
-	};
+	}
 
 }

@@ -13,22 +13,23 @@ public class EWNPath extends SwitchPath {
 	public EWNPath(GridLoc loc, Map T) {
 		super(new Direction("east"), new Direction("west"), new Direction(
 				"north"), loc, T);
-		setLoc(loc);
-		startAngle = 180;
-	}
-
-	public EWNPath(Map T) {
-		super(new Direction("east"), new Direction("west"), new Direction(
-				"north"), T);
+		setGridLocation(loc);
 		startAngle = 180;
 	}
 
 	@Override
+	protected void initCoordinates() {
+		x1 = 0.0;
+		y1 = 0.5;
+		x2 = 1.0;
+		y2 = 0.5;
+		x3 = 0.5;
+		y3 = -0.5;
+	}
+
+	@Override
 	public boolean enter(TreasureHunter newTreasureHunter) {
-		Direction dir = newTreasureHunter.getDirection();
-		Path currentPath = newTreasureHunter.getCurrentPath();
-		Direction nD = currentPath.exit(dir);
-		Direction nextDir = nD.opposite();
+		Direction nextDir = getNextDirection(newTreasureHunter);
 
 		if (goingStraight) {
 			if (nextDir.equals("west") || nextDir.equals("east")) {
@@ -43,16 +44,7 @@ public class EWNPath extends SwitchPath {
 		return false;
 	}
 
-	public void setLoc(GridLoc loc) {
-		super.setLoc(loc);
-		x1 = 0.0;
-		y1 = 0.5;
-		x2 = 1.0;
-		y2 = 0.5;
-		x3 = 0.5;
-		y3 = -0.5;
-	}
-
+	@Override
 	public String toString() {
 		return "EWNPath";
 	}
