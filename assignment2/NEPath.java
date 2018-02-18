@@ -12,8 +12,8 @@ public class NEPath extends CornerPath {
 	 */
 	private static final long serialVersionUID = 1574682404470395514L;
 
-	public NEPath(GridLoc loc, Map T) {
-		super(new Direction("north"), new Direction("east"), loc, T);
+	public NEPath(GridLoc loc, Map map) {
+		super(new Direction(DirEnum.NORTH), new Direction(DirEnum.EAST), loc, map);
 		startAngle = 180;
 	}
 

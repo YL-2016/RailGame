@@ -17,49 +17,49 @@ public abstract class TwoEndPath extends Path {
 	private Path neighbour1; // The Path in the direction end1.
 	private Path neighbour2; // The Path in the direction end2.
 
-	public TwoEndPath(Direction e1, Direction e2, GridLoc loc, Map T) {
-		super(loc, T);
+	public TwoEndPath(Direction dir1, Direction dir2, GridLoc loc, Map map) {
+		super(loc, map);
 		color = Color.orange;
-		end1 = e1;
-		end2 = e2;
+		end1 = dir1;
+		end2 = dir2;
 	}
 
 	@Override
-	public boolean exitOK(Direction d) {
-		return d.equals(end1) || d.equals(end2);
+	public boolean exitOK(Direction direction) {
+		return direction.isSameDirection(end1) || direction.isSameDirection(end2);
 	}
 
 	@Override
 	public String getDirectionInfo() {
-		return end1.direction + " " + end2.direction + " ";
+		return end1 + " " + end2 + " ";
 	}
 
 	@Override
-	public void register(Path r, Direction d) {
-		if (validDir(d)) {
-			if (d.equals(end1)) {
-				neighbour1 = r;
+	public void register(Path path, Direction direction) {
+		if (validDir(direction)) {
+			if (direction.isSameDirection(end1)) {
+				neighbour1 = path;
 			} else {
-				neighbour2 = r;
+				neighbour2 = path;
 			}
 		}
 	}
 
 	@Override
-	public void unRegister(Direction d) {
-		if (validDir(d)) {
-			if (d.equals(end1)) {
+	public void unRegister(Direction direction) {
+		if (validDir(direction)) {
+			if (direction.isSameDirection(end1)) {
 				neighbour1 = null;
-			} else if (d.equals(end2)) {
+			} else if (direction.isSameDirection(end2)) {
 				neighbour2 = null;
 			}
 		}
 	}
 
 	@Override
-	public Direction exit(Direction d) {
-		if (validDir(d)) {
-			return d.equals(end1) ? end2 : end1;
+	public Direction exit(Direction direction) {
+		if (validDir(direction)) {
+			return direction.isSameDirection(end1) ? end2 : end1;
 		}
 
 		return null;
@@ -68,7 +68,7 @@ public abstract class TwoEndPath extends Path {
 	@Override
 	public Path nextPath(Direction d) {
 		if (validDir(d)) {
-			return d.equals(end1) ? neighbour2 : neighbour1;
+			return d.isSameDirection(end1) ? neighbour2 : neighbour1;
 		}
 
 		return null;

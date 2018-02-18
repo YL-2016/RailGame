@@ -45,8 +45,16 @@ Fix: Remove Person1.java, Person2.java and instance variable(totalWeight, forwar
 ######### 
 # Step 8
 
-Code affected: Hierarchy type of Path
+Code affected: All .java file that has a hierarchy relationship with Path
 
-Flaw: Path should be an abstract class, access control problem
+Flaw: 1.Path should be an abstract class, access control problem; 2.There are unneeded constructor in ***Path.java and **Path.java that take in only Map T as input
 
-Fix: Make them abstraction(exitOK(), register(), unRegister(), exit(), nextPath(), getDirectionInfo(), initCoordinates())
+Fix: 1.Make them abstraction(exitOK(), register(), unRegister(), exit(), nextPath(), getDirectionInfo(), initCoordinates()) in Path, and make notations in the related class due to Path become abstract(put override above the related method to indicate the implementation of abstract method) 2.delete the unneeded constructor in these classes.
+######### 
+# Step 9
+
+Code affected: Direction.java
+
+Flaw: The structure of this code is gross and we need a more neat way write this class
+
+Fix: Using enumerated type and add a DirEnum.java

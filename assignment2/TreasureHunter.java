@@ -59,7 +59,7 @@ public class TreasureHunter {
 
 		Direction nD = currentPath.exit(dir);
 
-		Direction nextDir = nD.opposite();
+		Direction nextDir = nD.getOpposite();
 		Path nextPath = currentPath.nextPath(dir);
 
 		if (nextPath.enter(this)) {

@@ -12,8 +12,8 @@ public class EWPath extends StraightPath {
 	 */
 	private static final long serialVersionUID = -7535684661244464354L;
 
-	public EWPath(GridLoc loc, Map T) {
-		super(new Direction("east"), new Direction("west"), loc, T);
+	public EWPath(GridLoc loc, Map map) {
+		super(new Direction(DirEnum.EAST), new Direction(DirEnum.WEST), loc, map);
 	}
 
 	@Override

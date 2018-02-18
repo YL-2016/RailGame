@@ -13,8 +13,8 @@ public class SNEPath extends SwitchPath {
 	private static final long serialVersionUID = 1880372384285140537L;
 
 	public SNEPath(GridLoc loc, Map T) {
-		super(new Direction("south"), new Direction("north"), new Direction(
-				"east"), loc, T);
+		super(new Direction(DirEnum.SOUTH), new Direction(DirEnum.NORTH),
+				new Direction(DirEnum.EAST), loc, T);
 		startAngle = 90;
 	}
 
@@ -30,14 +30,14 @@ public class SNEPath extends SwitchPath {
 
 	@Override
 	public boolean enter(TreasureHunter newTreasureHunter) {
-		Direction nextDir = getNextDirection(newTreasureHunter);
+		DirEnum nextDir = getNextDirEnum(newTreasureHunter);
 
 		if (goingStraight) {
-			if (nextDir.equals("south") || nextDir.equals("north")) {
+			if (nextDir == DirEnum.SOUTH || nextDir == DirEnum.NORTH) {
 				return super.enter(newTreasureHunter);
 			}
 		} else {
-			if (nextDir.equals("south") || nextDir.equals("east")) {
+			if (nextDir == DirEnum.SOUTH || nextDir == DirEnum.EAST) {
 				return super.enter(newTreasureHunter);
 			}
 		}

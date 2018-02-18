@@ -10,5 +10,5 @@ public class GridLoc {
 
 	public String toString() {
 		return (row + " " + col);
-	};
+	}
 }

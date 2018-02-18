@@ -11,12 +11,12 @@ public class WENPath extends SwitchPath {
 	 */
 	private static final long serialVersionUID = -8193923509772126418L;
 
-	public WENPath(GridLoc loc, Map T) {
-		super(new Direction("west"), new Direction("east"), new Direction(
-				"north"), loc, T);
+	public WENPath(GridLoc loc, Map map) {
+		super(new Direction(DirEnum.WEST), new Direction(DirEnum.EAST),
+				new Direction(DirEnum.NORTH), loc, map);
 		startAngle = 270;
 	}
-	
+
 	@Override
 	protected void initCoordinates() {
 		x1 = 0.0;
@@ -26,17 +26,17 @@ public class WENPath extends SwitchPath {
 		x3 = -0.5;
 		y3 = -0.5;
 	}
-	
+
 	@Override
 	public boolean enter(TreasureHunter newTreasureHunter) {
-		Direction nextDir = getNextDirection(newTreasureHunter);
+		DirEnum nextDir = getNextDirEnum(newTreasureHunter);
 
 		if (goingStraight) {
-			if (nextDir.equals("west") || nextDir.equals("east")) {
+			if (nextDir == DirEnum.WEST || nextDir == DirEnum.EAST) {
 				return super.enter(newTreasureHunter);
 			}
 		} else {
-			if (nextDir.equals("north") || nextDir.equals("west")) {
+			if (nextDir == DirEnum.NORTH || nextDir == DirEnum.WEST) {
 				return super.enter(newTreasureHunter);
 			}
 		}

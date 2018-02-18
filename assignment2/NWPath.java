@@ -12,8 +12,8 @@ public class NWPath extends CornerPath {
 	 */
 	private static final long serialVersionUID = 3148215773767407784L;
 
-	public NWPath(GridLoc loc, Map T) {
-		super(new Direction("north"), new Direction("west"), loc, T);
+	public NWPath(GridLoc loc, Map map) {
+		super(new Direction(DirEnum.NORTH), new Direction(DirEnum.WEST), loc, map);
 		startAngle = 270;
 	}
 

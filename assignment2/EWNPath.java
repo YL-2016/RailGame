@@ -10,10 +10,9 @@ public class EWNPath extends SwitchPath {
 	 */
 	private static final long serialVersionUID = 421262872029126357L;
 
-	public EWNPath(GridLoc loc, Map T) {
-		super(new Direction("east"), new Direction("west"), new Direction(
-				"north"), loc, T);
-		setGridLocation(loc);
+	public EWNPath(GridLoc loc, Map map) {
+		super(new Direction(DirEnum.EAST), new Direction(DirEnum.WEST),
+				new Direction(DirEnum.NORTH), loc, map);
 		startAngle = 180;
 	}
 
@@ -29,14 +28,14 @@ public class EWNPath extends SwitchPath {
 
 	@Override
 	public boolean enter(TreasureHunter newTreasureHunter) {
-		Direction nextDir = getNextDirection(newTreasureHunter);
+		DirEnum nextDir = getNextDirEnum(newTreasureHunter);
 
 		if (goingStraight) {
-			if (nextDir.equals("west") || nextDir.equals("east")) {
+			if (nextDir == DirEnum.WEST || nextDir == DirEnum.EAST) {
 				return super.enter(newTreasureHunter);
 			}
 		} else {
-			if (nextDir.equals("north") || nextDir.equals("east")) {
+			if (nextDir == DirEnum.NORTH || nextDir == DirEnum.EAST) {
 				return super.enter(newTreasureHunter);
 			}
 		}

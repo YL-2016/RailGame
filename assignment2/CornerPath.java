@@ -20,8 +20,8 @@ public abstract class CornerPath extends TwoEndPath {
 
 	private int arcAngle;
 
-	public CornerPath(Direction e1, Direction e2, GridLoc loc, Map T) {
-		super(e1, e2, loc, T);
+	public CornerPath(Direction dir1, Direction dir2, GridLoc loc, Map map) {
+		super(dir1, dir2, loc, map);
 		arcAngle = 90;
 	}
 

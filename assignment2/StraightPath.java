@@ -18,8 +18,8 @@ public abstract class StraightPath extends TwoEndPath {
 	protected double x1, y1; 
 	protected double x2, y2;
 
-	public StraightPath(Direction e1, Direction e2, GridLoc loc, Map T) {
-		super(e1, e2, loc, T);
+	public StraightPath(Direction dir1, Direction dir2, GridLoc loc, Map map) {
+		super(dir1, dir2, loc, map);
 		color = Color.orange;
 	}
 

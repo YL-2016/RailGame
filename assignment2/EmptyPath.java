@@ -12,8 +12,8 @@ public class EmptyPath extends Path {
 	 */
 	private static final long serialVersionUID = 1275207235685976193L;
 
-	public EmptyPath(Map T) {
-		super(T);
+	public EmptyPath(Map map) {
+		super(map);
 	}
 
 	@Override
@@ -21,32 +21,32 @@ public class EmptyPath extends Path {
 	}
 
 	@Override
-	protected boolean validDir(Direction d) {
+	protected boolean validDir(Direction direction) {
 		return false;
 	}
 
 	@Override
-	public boolean exitOK(Direction d) {
+	public boolean exitOK(Direction direction) {
 		return false;
 	}
 
 	@Override
-	public void register(Path r, Direction d) {
+	public void register(Path path, Direction direction) {
 		return;
 	}
 
 	@Override
-	public void unRegister(Direction d) {
+	public void unRegister(Direction direction) {
 		return;
 	}
 
 	@Override
-	public Direction exit(Direction d) {
+	public Direction exit(Direction direction) {
 		return null;
 	}
 
 	@Override
-	public Path nextPath(Direction d) {
+	public Path nextPath(Direction direction) {
 		return null;
 	}
 

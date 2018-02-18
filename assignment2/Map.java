@@ -135,7 +135,7 @@ public class Map extends Frame {
 	protected void registerOrUnRegister(boolean test, Path r1, Path r2,
 			Direction d) {
 		if (test && r1 != null && r1.exitOK(d)) {
-			if (r2.exitOK(d.opposite())) {
+			if (r2.exitOK(d.getOpposite())) {
 				connectPaths(r1, r2, d);
 			} else {
 				r1.unRegister(d);
@@ -147,10 +147,10 @@ public class Map extends Frame {
 	protected void connectPath(int row, int col) {
 		Path r = paths[row][col];
 
-		Direction north = new Direction("north");
-		Direction south = new Direction("south");
-		Direction east = new Direction("east");
-		Direction west = new Direction("west");
+		Direction north = new Direction(DirEnum.NORTH);
+		Direction south = new Direction(DirEnum.SOUTH);
+		Direction east = new Direction(DirEnum.EAST);
+		Direction west = new Direction(DirEnum.WEST);
 
 		if (r != null) {
 			Path rN = row > 0 ? paths[row - 1][col] : null;
@@ -168,7 +168,7 @@ public class Map extends Frame {
 	// Connect paths r1 and r2; r2 is in direction d from r1.
 	protected void connectPaths(Path r1, Path r2, Direction d) {
 		r1.register(r2, d);
-		r2.register(r1, d.opposite());
+		r2.register(r1, d.getOpposite());
 	}
 
 	// Add e to the path at location loc.
@@ -214,81 +214,81 @@ public class Map extends Frame {
 		paths[0][0] = new SEPath(new GridLoc(0, 0), this);
 
 		paths[0][1] = new EWPath(new GridLoc(0, 1), this);
-		connectPaths(paths[0][0], paths[0][1], new Direction("east"));
+		connectPaths(paths[0][0], paths[0][1], new Direction(DirEnum.EAST));
 
 		paths[0][2] = new SWPath(new GridLoc(0, 2), this);
-		connectPaths(paths[0][1], paths[0][2], new Direction("east"));
+		connectPaths(paths[0][1], paths[0][2], new Direction(DirEnum.EAST));
 
 		paths[1][2] = new NSPath(new GridLoc(1, 2), this);
-		connectPaths(paths[0][2], paths[1][2], new Direction("south"));
+		connectPaths(paths[0][2], paths[1][2], new Direction(DirEnum.SOUTH));
 
 		paths[2][2] = new CrossPath(new GridLoc(2, 2), this);
-		connectPaths(paths[1][2], paths[2][2], new Direction("south"));
+		connectPaths(paths[1][2], paths[2][2], new Direction(DirEnum.SOUTH));
 
 		paths[2][3] = new EWPath(new GridLoc(2, 3), this);
-		connectPaths(paths[2][2], paths[2][3], new Direction("east"));
+		connectPaths(paths[2][2], paths[2][3], new Direction(DirEnum.EAST));
 
 		paths[2][4] = new EWPath(new GridLoc(2, 4), this);
-		connectPaths(paths[2][3], paths[2][4], new Direction("east"));
+		connectPaths(paths[2][3], paths[2][4], new Direction(DirEnum.EAST));
 
 		paths[2][5] = new CrossPath(new GridLoc(2, 5), this);
-		connectPaths(paths[2][4], paths[2][5], new Direction("east"));
+		connectPaths(paths[2][4], paths[2][5], new Direction(DirEnum.EAST));
 
 		paths[2][6] = new SWPath(new GridLoc(2, 6), this);
-		connectPaths(paths[2][5], paths[2][6], new Direction("east"));
+		connectPaths(paths[2][5], paths[2][6], new Direction(DirEnum.EAST));
 
 		paths[3][6] = new NWPath(new GridLoc(3, 6), this);
-		connectPaths(paths[2][6], paths[3][6], new Direction("south"));
+		connectPaths(paths[2][6], paths[3][6], new Direction(DirEnum.SOUTH));
 
 		paths[3][5] = new NEPath(new GridLoc(3, 5), this);
-		connectPaths(paths[3][6], paths[3][5], new Direction("west"));
-		connectPaths(paths[2][5], paths[3][5], new Direction("south"));
+		connectPaths(paths[3][6], paths[3][5], new Direction(DirEnum.WEST));
+		connectPaths(paths[2][5], paths[3][5], new Direction(DirEnum.SOUTH));
 
 		paths[1][5] = new SEPath(new GridLoc(1, 5), this);
-		connectPaths(paths[2][5], paths[1][5], new Direction("north"));
+		connectPaths(paths[2][5], paths[1][5], new Direction(DirEnum.NORTH));
 
 		paths[1][6] = new EWPath(new GridLoc(1, 6), this);
-		connectPaths(paths[1][5], paths[1][6], new Direction("east"));
+		connectPaths(paths[1][5], paths[1][6], new Direction(DirEnum.EAST));
 
 		paths[1][7] = new SWPath(new GridLoc(1, 7), this);
-		connectPaths(paths[1][6], paths[1][7], new Direction("east"));
+		connectPaths(paths[1][6], paths[1][7], new Direction(DirEnum.EAST));
 
 		paths[2][7] = new NSPath(new GridLoc(2, 7), this);
-		connectPaths(paths[1][7], paths[2][7], new Direction("south"));
+		connectPaths(paths[1][7], paths[2][7], new Direction(DirEnum.SOUTH));
 
 		paths[3][7] = new NSPath(new GridLoc(3, 7), this);
-		connectPaths(paths[2][7], paths[3][7], new Direction("south"));
+		connectPaths(paths[2][7], paths[3][7], new Direction(DirEnum.SOUTH));
 
 		paths[4][7] = new NWPath(new GridLoc(4, 7), this);
-		connectPaths(paths[3][7], paths[4][7], new Direction("south"));
+		connectPaths(paths[3][7], paths[4][7], new Direction(DirEnum.SOUTH));
 
 		paths[4][6] = new EWPath(new GridLoc(4, 6), this);
-		connectPaths(paths[4][7], paths[4][6], new Direction("west"));
+		connectPaths(paths[4][7], paths[4][6], new Direction(DirEnum.WEST));
 
 		paths[4][5] = new WESPath(new GridLoc(4, 5), this);
-		connectPaths(paths[4][6], paths[4][5], new Direction("west"));
+		connectPaths(paths[4][6], paths[4][5], new Direction(DirEnum.WEST));
 
 		paths[4][4] = new NEPath(new GridLoc(4, 4), this);
-		connectPaths(paths[4][5], paths[4][4], new Direction("west"));
+		connectPaths(paths[4][5], paths[4][4], new Direction(DirEnum.WEST));
 
 		paths[3][4] = new SWPath(new GridLoc(3, 4), this);
-		connectPaths(paths[4][4], paths[3][4], new Direction("north"));
+		connectPaths(paths[4][4], paths[3][4], new Direction(DirEnum.NORTH));
 
 		paths[3][3] = new EWSPath(new GridLoc(3, 3), this);
-		connectPaths(paths[3][4], paths[3][3], new Direction("west"));
+		connectPaths(paths[3][4], paths[3][3], new Direction(DirEnum.WEST));
 
 		paths[4][3] = new SNWPath(new GridLoc(4, 3), this);
-		connectPaths(paths[4][3], paths[3][3], new Direction("north"));
+		connectPaths(paths[4][3], paths[3][3], new Direction(DirEnum.NORTH));
 
 		paths[5][3] = new NEPath(new GridLoc(5, 3), this);
-		connectPaths(paths[5][3], paths[4][3], new Direction("north"));
+		connectPaths(paths[5][3], paths[4][3], new Direction(DirEnum.NORTH));
 
 		paths[5][4] = new EWPath(new GridLoc(5, 4), this);
-		connectPaths(paths[5][4], paths[5][3], new Direction("west"));
+		connectPaths(paths[5][4], paths[5][3], new Direction(DirEnum.WEST));
 
 		paths[5][5] = new NWPath(new GridLoc(5, 5), this);
-		connectPaths(paths[5][5], paths[5][4], new Direction("west"));
-		connectPaths(paths[5][5], paths[4][5], new Direction("north"));
+		connectPaths(paths[5][5], paths[5][4], new Direction(DirEnum.WEST));
+		connectPaths(paths[5][5], paths[4][5], new Direction(DirEnum.NORTH));
 
 		// These are just put there to see what they look like.
 		// paths[6][0] = new EWNPath(new GridLoc(6, 0), this);
@@ -302,29 +302,29 @@ public class Map extends Frame {
 		// ------------------------------------------------------------------------------
 
 		paths[3][2] = new CrossPath(new GridLoc(3, 2), this);
-		connectPaths(paths[3][3], paths[3][2], new Direction("west"));
-		connectPaths(paths[2][2], paths[3][2], new Direction("south"));
+		connectPaths(paths[3][3], paths[3][2], new Direction(DirEnum.WEST));
+		connectPaths(paths[2][2], paths[3][2], new Direction(DirEnum.SOUTH));
 
 		paths[4][2] = new WENPath(new GridLoc(4, 2), this);
-		connectPaths(paths[3][2], paths[4][2], new Direction("south"));
-		connectPaths(paths[4][3], paths[4][2], new Direction("west"));
+		connectPaths(paths[3][2], paths[4][2], new Direction(DirEnum.SOUTH));
+		connectPaths(paths[4][3], paths[4][2], new Direction(DirEnum.WEST));
 
 		paths[4][1] = new NEPath(new GridLoc(4, 1), this);
-		connectPaths(paths[4][2], paths[4][1], new Direction("west"));
+		connectPaths(paths[4][2], paths[4][1], new Direction(DirEnum.WEST));
 
 		paths[3][1] = new SEPath(new GridLoc(3, 1), this);
-		connectPaths(paths[3][2], paths[3][1], new Direction("west"));
-		connectPaths(paths[3][1], paths[4][1], new Direction("south"));
+		connectPaths(paths[3][2], paths[3][1], new Direction(DirEnum.WEST));
+		connectPaths(paths[3][1], paths[4][1], new Direction(DirEnum.SOUTH));
 
 		paths[2][1] = new EWPath(new GridLoc(2, 1), this);
-		connectPaths(paths[2][2], paths[2][1], new Direction("west"));
+		connectPaths(paths[2][2], paths[2][1], new Direction(DirEnum.WEST));
 
 		paths[2][0] = new NEPath(new GridLoc(2, 0), this);
-		connectPaths(paths[2][1], paths[2][0], new Direction("west"));
+		connectPaths(paths[2][1], paths[2][0], new Direction(DirEnum.WEST));
 
 		paths[1][0] = new NSPath(new GridLoc(1, 0), this);
-		connectPaths(paths[2][0], paths[1][0], new Direction("north"));
-		connectPaths(paths[1][0], paths[0][0], new Direction("north"));
+		connectPaths(paths[2][0], paths[1][0], new Direction(DirEnum.NORTH));
+		connectPaths(paths[1][0], paths[0][0], new Direction(DirEnum.NORTH));
 
 		spawnTreasure(5, 3);
 

@@ -11,12 +11,12 @@ public class NSWPath extends SwitchPath {
 	 */
 	private static final long serialVersionUID = 8296479325132751896L;
 
-	public NSWPath(GridLoc loc, Map T) {
-		super(new Direction("north"), new Direction("south"), new Direction(
-				"west"), loc, T);
+	public NSWPath(GridLoc loc, Map map) {
+		super(new Direction(DirEnum.NORTH), new Direction(DirEnum.SOUTH),
+				new Direction(DirEnum.WEST), loc, map);
 		startAngle = 270;
 	}
-	
+
 	@Override
 	protected void initCoordinates() {
 		x1 = 0.5;
@@ -29,14 +29,14 @@ public class NSWPath extends SwitchPath {
 
 	@Override
 	public boolean enter(TreasureHunter newTreasureHunter) {
-		Direction nextDir = getNextDirection(newTreasureHunter);
+		DirEnum nextDir = getNextDirEnum(newTreasureHunter);
 
 		if (goingStraight) {
-			if (nextDir.equals("north") || nextDir.equals("south")) {
+			if (nextDir == DirEnum.NORTH || nextDir == DirEnum.SOUTH) {
 				return super.enter(newTreasureHunter);
 			}
 		} else {
-			if (nextDir.equals("north") || nextDir.equals("west")) {
+			if (nextDir == DirEnum.NORTH || nextDir == DirEnum.WEST) {
 				return super.enter(newTreasureHunter);
 			}
 		}

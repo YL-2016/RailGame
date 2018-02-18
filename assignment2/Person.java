@@ -63,7 +63,7 @@ public class Person extends Thread {
 
 			// Now I know the Path on which the next currPerson will
 			// be. Find out how it got on to it.
-			dir = nextPath.exit(dir.opposite());
+			dir = nextPath.exit(dir.getOpposite());
 
 			currPerson = currPerson.nextTreasureHunter;
 		}

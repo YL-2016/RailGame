@@ -11,9 +11,9 @@ public class SNWPath extends SwitchPath {
 	 */
 	private static final long serialVersionUID = -3693104809275455409L;
 
-	public SNWPath(GridLoc loc, Map T) {
-		super(new Direction("south"), new Direction("north"), new Direction(
-				"west"), loc, T);
+	public SNWPath(GridLoc loc, Map map) {
+		super(new Direction(DirEnum.SOUTH), new Direction(DirEnum.NORTH),
+				new Direction(DirEnum.WEST), loc, map);
 		startAngle = 0;
 	}
 
@@ -29,14 +29,14 @@ public class SNWPath extends SwitchPath {
 
 	@Override
 	public boolean enter(TreasureHunter newTreasureHunter) {
-		Direction nextDir = getNextDirection(newTreasureHunter);
+		DirEnum nextDir = getNextDirEnum(newTreasureHunter);
 
 		if (goingStraight) {
-			if (nextDir.equals("south") || nextDir.equals("north")) {
+			if (nextDir == DirEnum.SOUTH || nextDir == DirEnum.NORTH) {
 				return super.enter(newTreasureHunter);
 			}
 		} else {
-			if (nextDir.equals("south") || nextDir.equals("west")) {
+			if (nextDir == DirEnum.SOUTH || nextDir == DirEnum.WEST) {
 				return super.enter(newTreasureHunter);
 			}
 		}
@@ -48,4 +48,5 @@ public class SNWPath extends SwitchPath {
 	public String toString() {
 		return "SNWPath";
 	}
+	
 }

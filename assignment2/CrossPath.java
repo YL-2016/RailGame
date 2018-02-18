@@ -28,14 +28,14 @@ public class CrossPath extends Path {
 	private Path neighbour3; // The Path in the direction end3.
 	private Path neighbour4; // The Path in the direction end4.
 
-	public CrossPath(GridLoc loc, Map T) {
-		super(loc, T);
+	public CrossPath(GridLoc loc, Map map) {
+		super(loc, map);
 
 		color = Color.orange;
-		end1 = new Direction("north");
-		end2 = new Direction("south");
-		end3 = new Direction("east");
-		end4 = new Direction("west");
+		end1 = new Direction(DirEnum.NORTH);
+		end2 = new Direction(DirEnum.SOUTH);
+		end3 = new Direction(DirEnum.EAST);
+		end4 = new Direction(DirEnum.WEST);
 	}
 
 	@Override
@@ -51,57 +51,58 @@ public class CrossPath extends Path {
 	}
 
 	@Override
-	public boolean exitOK(Direction d) {
-		return d.equals(end1) || d.equals(end2) || d.equals(end3)
-				|| d.equals(end4);
+	public boolean exitOK(Direction direction) {
+		return direction.isSameDirection(end1)
+				|| direction.isSameDirection(end2)
+				|| direction.isSameDirection(end3)
+				|| direction.isSameDirection(end4);
 	}
 
 	@Override
 	public String getDirectionInfo() {
-		return end1.direction + " " + end2.direction + " " + end3.direction
-				+ " " + end4.direction + " ";
+		return end1 + " " + end2 + " " + end3 + " " + end4 + " ";
 	}
 
 	@Override
-	public void register(Path r, Direction d) {
-		if (validDir(d)) {
-			if (d.equals(end1)) {
-				neighbour1 = r;
-			} else if (d.equals(end2)) {
-				neighbour2 = r;
-			} else if (d.equals(end3)) {
-				neighbour3 = r;
-			} else if (d.equals(end4)) {
-				neighbour4 = r;
+	public void register(Path path, Direction direction) {
+		if (validDir(direction)) {
+			if (direction.isSameDirection(end1)) {
+				neighbour1 = path;
+			} else if (direction.isSameDirection(end2)) {
+				neighbour2 = path;
+			} else if (direction.isSameDirection(end3)) {
+				neighbour3 = path;
+			} else if (direction.isSameDirection(end4)) {
+				neighbour4 = path;
 			}
 		}
 	}
 
 	@Override
-	public void unRegister(Direction d) {
-		if (validDir(d)) {
-			if (d.equals(end1)) {
+	public void unRegister(Direction direction) {
+		if (validDir(direction)) {
+			if (direction.isSameDirection(end1)) {
 				neighbour1 = null;
-			} else if (d.equals(end2)) {
+			} else if (direction.isSameDirection(end2)) {
 				neighbour2 = null;
-			} else if (d.equals(end3)) {
+			} else if (direction.isSameDirection(end3)) {
 				neighbour3 = null;
-			} else if (d.equals(end4)) {
+			} else if (direction.isSameDirection(end4)) {
 				neighbour4 = null;
 			}
 		}
 	}
 
 	@Override
-	public Direction exit(Direction d) {
-		if (validDir(d)) {
-			if (d.equals(end1)) {
+	public Direction exit(Direction direction) {
+		if (validDir(direction)) {
+			if (direction.isSameDirection(end1)) {
 				return end2;
-			} else if (d.equals(end2)) {
+			} else if (direction.isSameDirection(end2)) {
 				return end1;
-			} else if (d.equals(end3)) {
+			} else if (direction.isSameDirection(end3)) {
 				return end4;
-			} else if (d.equals(end4)) {
+			} else if (direction.isSameDirection(end4)) {
 				return end3;
 			}
 		}
@@ -110,15 +111,15 @@ public class CrossPath extends Path {
 	}
 
 	@Override
-	public Path nextPath(Direction d) {
-		if (validDir(d)) {
-			if (d.equals(end1)) {
+	public Path nextPath(Direction direction) {
+		if (validDir(direction)) {
+			if (direction.isSameDirection(end1)) {
 				return neighbour2;
-			} else if (d.equals(end2)) {
+			} else if (direction.isSameDirection(end2)) {
 				return neighbour1;
-			} else if (d.equals(end3)) {
+			} else if (direction.isSameDirection(end3)) {
 				return neighbour4;
-			} else if (d.equals(end4)) {
+			} else if (direction.isSameDirection(end4)) {
 				return neighbour3;
 			}
 		}

@@ -28,15 +28,15 @@ public abstract class Path extends Canvas {
 	private GridLoc location; // location
 	private Map theMap; // theMap
 
-	public Path(Map T) {
-		theMap = T;
+	public Path(Map map) {
+		theMap = map;
 		isOccupied = false;
 		setSize(size, size);
 	}
 
-	public Path(GridLoc loc, Map T) {
+	public Path(GridLoc loc, Map map) {
 		location = loc;
-		theMap = T;
+		theMap = map;
 		isOccupied = false;
 		initCoordinates();
 	}
@@ -109,21 +109,21 @@ public abstract class Path extends Canvas {
 	}
 
 	// Return true if d is a valid direction for me.
-	public abstract boolean exitOK(Direction d);
+	public abstract boolean exitOK(Direction direction);
 
 	// Register that Path r is in Direction d.
-	public abstract void register(Path r, Direction d);
+	public abstract void register(Path path, Direction direction);
 
 	// Register that there is no Path in Direction d.
-	public abstract void unRegister(Direction d);
+	public abstract void unRegister(Direction direction);
 
 	// Given that d is the Direction from which a TreasureHunter entered,
 	// report where the TreasureHunter will exit.
-	public abstract Direction exit(Direction d);
+	public abstract Direction exit(Direction direction);
 
 	// Given that d is the Direction from which a TreasureHunter entered,
 	// report which Path is next.
-	public abstract Path nextPath(Direction d);
+	public abstract Path nextPath(Direction direction);
 
 	public abstract String getDirectionInfo();
 
@@ -131,10 +131,10 @@ public abstract class Path extends Canvas {
 
 	// Return true if d is valid for this Path, return false and
 	// print an error otherwise.
-	protected boolean validDir(Direction d) {
-		if (!exitOK(d)) {
+	protected boolean validDir(Direction direction) {
+		if (!exitOK(direction)) {
 			System.err.print("exit(): Not a valid dir for this piece: ");
-			System.err.println(getDirectionInfo() + " " + d.direction);
+			System.err.println(getDirectionInfo() + " " + direction);
 			Exception e = new Exception();
 			e.printStackTrace(System.out);
 

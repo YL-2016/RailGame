@@ -37,46 +37,46 @@ public abstract class SwitchPath extends Path {
 	// Whether I am aligned to go straight.
 	protected boolean goingStraight;
 
-	public SwitchPath(Direction e1, Direction e2, Direction e3, GridLoc loc,
-			Map T) {
-		super(loc, T);
+	public SwitchPath(Direction dir1, Direction dir2, Direction dir3,
+			GridLoc loc, Map map) {
+		super(loc, map);
 		color = Color.magenta;
 		arcAngle = 90;
-		end1 = e1;
-		end2 = e2;
-		end3 = e3;
+		end1 = dir1;
+		end2 = dir2;
+		end3 = dir3;
 	}
 
 	@Override
-	public boolean exitOK(Direction d) {
-		return d.equals(end1) || d.equals(end2) || d.equals(end3);
+	public boolean exitOK(Direction direction) {
+		return direction.isSameDirection(end1) || direction.isSameDirection(end2)
+				|| direction.isSameDirection(end3);
 	}
 
 	@Override
 	public String getDirectionInfo() {
-		return end1.direction + " " + end2.direction + " " + end3.direction
-				+ " ";
+		return end1 + " " + end2 + " " + end3 + " ";
 	}
 
 	@Override
-	public void register(Path p, Direction d) {
-		if (validDir(d)) {
-			if (d.equals(end1)) {
-				neighbour1 = p;
-			} else if (d.equals(end2)) {
-				neighbour2 = p;
+	public void register(Path path, Direction direction) {
+		if (validDir(direction)) {
+			if (direction.isSameDirection(end1)) {
+				neighbour1 = path;
+			} else if (direction.isSameDirection(end2)) {
+				neighbour2 = path;
 			} else {
-				neighbour3 = p;
+				neighbour3 = path;
 			}
 		}
 	}
 
 	@Override
-	public void unRegister(Direction d) {
-		if (validDir(d)) {
-			if (d.equals(end1)) {
+	public void unRegister(Direction direction) {
+		if (validDir(direction)) {
+			if (direction.isSameDirection(end1)) {
 				neighbour1 = null;
-			} else if (d.equals(end2)) {
+			} else if (direction.isSameDirection(end2)) {
 				neighbour2 = null;
 			} else {
 				neighbour3 = null;
@@ -85,12 +85,12 @@ public abstract class SwitchPath extends Path {
 	}
 
 	@Override
-	public Direction exit(Direction d) {
-		if (validDir(d)) {
+	public Direction exit(Direction direction) {
+		if (validDir(direction)) {
 			if (goingStraight) {
-				return d.equals(end1) ? end2 : end1;
+				return direction.isSameDirection(end1) ? end2 : end1;
 			} else {
-				return d.equals(end1) ? end3 : end1;
+				return direction.isSameDirection(end1) ? end3 : end1;
 			}
 		}
 
@@ -98,12 +98,12 @@ public abstract class SwitchPath extends Path {
 	}
 
 	@Override
-	public Path nextPath(Direction d) {
-		if (validDir(d)) {
+	public Path nextPath(Direction direction) {
+		if (validDir(direction)) {
 			if (goingStraight) {
-				return d.equals(end1) ? neighbour2 : neighbour1;
+				return direction.isSameDirection(end1) ? neighbour2 : neighbour1;
 			} else {
-				return d.equals(end1) ? neighbour3 : neighbour1;
+				return direction.isSameDirection(end1) ? neighbour3 : neighbour1;
 			}
 		}
 
@@ -111,8 +111,8 @@ public abstract class SwitchPath extends Path {
 	}
 
 	@Override
-	public boolean handleEvent(Event evt) {
-		if (evt.id == Event.MOUSE_DOWN && !isOccupied()) {
+	public boolean handleEvent(Event e) {
+		if (e.id == Event.MOUSE_DOWN && !isOccupied()) {
 			goingStraight = !goingStraight;
 			repaint();
 			return true;
@@ -149,12 +149,12 @@ public abstract class SwitchPath extends Path {
 		super.draw(g);
 	}
 
-	public Direction getNextDirection(TreasureHunter newTreasureHunter) {
+	public DirEnum getNextDirEnum(TreasureHunter newTreasureHunter) {
 		Direction dir = newTreasureHunter.getDirection();
 		Path currentPath = newTreasureHunter.getCurrentPath();
 		Direction nD = currentPath.exit(dir);
 
-		return nD.opposite();
+		return nD.getOpposite().getDirection();
 	}
 
 	@Override
