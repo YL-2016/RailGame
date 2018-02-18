@@ -5,148 +5,146 @@ whether there is a Person on it or not, and these Persons can enter()
 and leave(). Given an entrance, a Path can report where the exit()
 is.
 
-*/
+ */
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
-class Path extends Canvas {
+public class Path extends Canvas {
 
-    // The amount of space in which Paths have to draw themselves.
-    public static int size = 20;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5349427178907982370L;
 
-    protected Color c; // color
-    protected boolean iO; // isOccupied
-    protected boolean hT; // hasTreasure
-    protected TreasureHunter cTH; // currentTreasureHunter
-    protected GridLoc location; // location
-    protected Map theMap; // theMap
+	// The amount of space in which Paths have to draw themselves.
+	public static int size = 20;
 
-    // True if a person entered or left. Used to speed up redrawing.
-    public boolean stateChanged = true;
+	protected Color c; // color
+	protected boolean iO; // isOccupied
+	protected boolean hT; // hasTreasure
+	protected TreasureHunter cTH; // currentTreasureHunter
+	protected GridLoc location; // location
+	protected Map theMap; // theMap
 
-    public Path(GridLoc loc, Map T) {
-        location = loc;
-        iO = false;
-        theMap = T;
-    }
+	// True if a person entered or left. Used to speed up redrawing.
+	public boolean stateChanged = true;
 
-    public Path(Map T) {
-        super();
-        iO = false;
-        theMap = T;
-        Rectangle b = bounds();
-        resize(size, size);
-    }
+	public Path(GridLoc loc, Map T) {
+		location = loc;
+		iO = false;
+		theMap = T;
+	}
 
-    // Return true iff there is a treasure hunter on me.
-    public boolean occupied() {
-        return iO;
-    }
+	public Path(Map T) {
+		super();
+		iO = false;
+		theMap = T;
+		Rectangle b = bounds();
+		resize(size, size);
+	}
 
-    public void setLoc(GridLoc loc) {
-        location = loc;
-    }
+	// Return true iff there is a treasure hunter on me.
+	public boolean occupied() {
+		return iO;
+	}
 
-    public GridLoc getLoc() {
-        return location;
-    }
+	public void setLoc(GridLoc loc) {
+		location = loc;
+	}
 
-    // Redraw myself.
-    public void draw(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g;
+	public GridLoc getLoc() {
+		return location;
+	}
 
-        Rectangle b = bounds();
-        g2.setStroke(new BasicStroke(1));
-        g2.setColor(Color.lightGray);
-        g2.drawRect(0, 0, b.width - 1, b.height - 1);
-        g2.setStroke(new BasicStroke(12));
+	// Redraw myself.
+	public void draw(Graphics g) {
+		Graphics2D g2 = (Graphics2D) g;
 
-        if (iO) {
-            cTH.draw(g2);
-        }
+		Rectangle b = bounds();
+		g2.setStroke(new BasicStroke(1));
+		g2.setColor(Color.lightGray);
+		g2.drawRect(0, 0, b.width - 1, b.height - 1);
+		g2.setStroke(new BasicStroke(12));
 
-        if (hT) {
-            Ellipse2D circle = new Ellipse2D.Double(b.width / 3, b.height / 3, b.width / 2, b.height / 2);
-            g2.setColor(Color.YELLOW);
-            g2.fill(circle);
-        }
-    }
+		if (iO) {
+			cTH.draw(g2);
+		}
 
-    // Register that a Person is on me.  Return true if successful,
-    // false otherwise.
-    public boolean enter(TreasureHunter newTreasureHunter) {
-        iO = true;
-        cTH = newTreasureHunter;
+		if (hT) {
+			Ellipse2D circle = new Ellipse2D.Double(b.width / 3, b.height / 3,
+					b.width / 2, b.height / 2);
+			g2.setColor(Color.YELLOW);
+			g2.fill(circle);
+		}
+	}
 
-        if (hT) {
-            System.out.println(cTH.score);
+	// Register that a Person is on me. Return true if successful,
+	// false otherwise.
+	public boolean enter(TreasureHunter newTreasureHunter) {
+		iO = true;
+		cTH = newTreasureHunter;
 
-            cTH.score = cTH.score + 1;
+		if (hT) {
+			System.out.println(cTH.score);
 
-            System.out.println(cTH.score);
+			cTH.score = cTH.score + 1;
 
-            theMap.updateStatusBar();
-            theMap.spawnTreasure();
-        }
+			System.out.println(cTH.score);
 
-        hT = false;
+			theMap.updateStatusBar();
+			theMap.spawnTreasure();
+		}
 
-        return true;
-    }
+		hT = false;
 
-    // Register that a Person is no longer on me.
-    public void leave() {
-        iO = false;
-        repaint();
-    }
+		return true;
+	}
 
-    // Update my display.
-    public void paint(Graphics g) {
-        draw(g);
-    }
+	// Register that a Person is no longer on me.
+	public void leave() {
+		iO = false;
 
-    // Return true if d is a valid direction for me.
-    public boolean exitOK(Direction d) {
-        return false;
-    }
+		if (iO) {
+			repaint();
+		} else {
+			repaint();
+		}
+	}
 
-    ;
+	// Update my display.
+	public void paint(Graphics g) {
+		draw(g);
+	}
 
-    // Register that Path r is in Direction d.
-    public void register(Path r, Direction d) {
-    }
+	// Return true if d is a valid direction for me.
+	public boolean exitOK(Direction d) {
+		return false;
+	};
 
-    ;
+	// Register that Path r is in Direction d.
+	public void register(Path r, Direction d) {
+	};
 
-    // Register that there is no Path in Direction d.
-    public void unRegister(Direction d) {
-    }
+	// Register that there is no Path in Direction d.
+	public void unRegister(Direction d) {
+	};
 
-    ;
+	// Given that d is the Direction from which a TreasureHunter entered,
+	// report where the TreasureHunter will exit.
+	public Direction exit(Direction d) {
+		return null;
+	};
 
-    // Given that d is the Direction from which a TreasureHunter entered,
-    // report where the TreasureHunter will exit.
-    public Direction exit(Direction d) {
-        return null;
-    }
+	// Given that d is the Direction from which a TreasureHunter entered,
+	// report which Path is next.
+	public Path nextPath(Direction d) {
+		return null;
+	};
 
-    ;
-
-    // Given that d is the Direction from which a TreasureHunter entered,
-    // report which Path is next.
-    public Path nextPath(Direction d) {
-        return null;
-    }
-
-    ;
-
-    // Return myself as a string.
-    public String toString() {
-        return "Path";
-    }
-
-    ;
+	// Return myself as a string.
+	public String toString() {
+		return "Path";
+	};
 
 }
-

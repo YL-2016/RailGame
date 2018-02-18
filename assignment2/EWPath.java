@@ -3,31 +3,33 @@
 The EWPath class.  An EWPath object has two ends,
 which must be opposite each other.
 
-*/
+ */
 
-class EWPath extends StraightPath {
+public class EWPath extends StraightPath {
 
-    public EWPath(GridLoc loc, Map T) {
-        super(new Direction("east"), new Direction("west"), loc, T);
-        setLoc(loc);
-    }
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7535684661244464354L;
 
-    public EWPath(Map T) {
-        super(new Direction("east"), new Direction("west"), T);
-    }
+	public EWPath(GridLoc loc, Map T) {
+		super(new Direction("east"), new Direction("west"), loc, T);
+		setLoc(loc);
+	}
 
-    public void setLoc(GridLoc loc) {
-        super.setLoc(loc);
-        x1 = 0.0;
-        y1 = 0.5;
-        x2 = 1.0;
-        y2 = 0.5;
-    }
+	public EWPath(Map T) {
+		super(new Direction("east"), new Direction("west"), T);
+	}
 
-    public String toString() {
-        return "EWPath";
-    }
+	public void setLoc(GridLoc loc) {
+		super.setLoc(loc);
+		x1 = 0.0;
+		y1 = 0.5;
+		x2 = 1.0;
+		y2 = 0.5;
+	}
 
-    ;
+	public String toString() {
+		return "EWPath";
+	};
 }
-

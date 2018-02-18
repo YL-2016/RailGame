@@ -1,6 +1,6 @@
 public class Treasure {
 
-    // The path I am on
-    protected Path path;
+	// The path I am on
+	protected Path path;
 
 }

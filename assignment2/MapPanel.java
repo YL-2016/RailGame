@@ -1,75 +1,78 @@
 import java.awt.*;
 
-class MapPanel extends Panel {
-    // ------------------------------------------------------------------
-    // The following items are used for double buffering.
+public class MapPanel extends Panel {
+	// ------------------------------------------------------------------
+	// The following items are used for double buffering.
 
-    // The buffer in which to draw the image; used for double buffering.
-    Image backBuffer;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4723290168915826378L;
 
-    // The graphics context to use when double buffering.
-    Graphics backG;
+	// The buffer in which to draw the image; used for double buffering.
+	Image backBuffer;
 
-    private Path[][] paths;    // The grid of paths.
+	// The graphics context to use when double buffering.
+	Graphics backG;
 
-    public void addToPanel(Path[][] r) {
-        paths = r;
-        setLayout(new GridLayout(paths.length, paths[0].length, 0, 0));
-        for (int row = 0; row < paths.length; row++) {
-            for (int col = 0; col < paths[0].length; col++) {
-                add("", paths[row][col]);
-            }
-        }
-    }
+	private Path[][] paths; // The grid of paths.
 
-    // paint
-    // ------------------------------------------------------------------
-    // Paint the display.
+	public void addToPanel(Path[][] r) {
+		paths = r;
+		setLayout(new GridLayout(paths.length, paths[0].length, 0, 0));
+		for (int row = 0; row < paths.length; row++) {
+			for (int col = 0; col < paths[0].length; col++) {
+				add("", paths[row][col]);
+			}
+		}
+	}
 
-    public void paint(Graphics g) {
-        update(g);
-    }
+	// paint
+	// ------------------------------------------------------------------
+	// Paint the display.
 
-    public Insets insets() {
-        return new Insets(10, 10, 10, 10);
-    }
+	public void paint(Graphics g) {
+		update(g);
+	}
 
-    // update
-    // ------------------------------------------------------------------
-    // Update the display; tell all my Paths to update themselves.
+	public Insets insets() {
+		return new Insets(10, 10, 10, 10);
+	}
 
-    public void update(Graphics g) {
+	// update
+	// ------------------------------------------------------------------
+	// Update the display; tell all my Paths to update themselves.
 
-        // Get my width and height.
-        int w = bounds().width;
-        int h = bounds().height;
+	public void update(Graphics g) {
 
-        // If we don't yet have an Image, create one.
-        if (backBuffer == null
-                || backBuffer.getWidth(null) != w
-                || backBuffer.getHeight(null) != h) {
-            backBuffer = createImage(w, h);
-            if (backBuffer != null) {
+		// Get my width and height.
+		int w = bounds().width;
+		int h = bounds().height;
 
-                // If we have a backG, it belonged to an old Image.
-                // Get rid of it.
-                if (backG != null) {
-                    backG.dispose();
-                }
-                backG = backBuffer.getGraphics();
-            }
-        }
+		// If we don't yet have an Image, create one.
+		if (backBuffer == null || backBuffer.getWidth(null) != w
+				|| backBuffer.getHeight(null) != h) {
+			backBuffer = createImage(w, h);
+			if (backBuffer != null) {
 
-        if (backBuffer != null) {
+				// If we have a backG, it belonged to an old Image.
+				// Get rid of it.
+				if (backG != null) {
+					backG.dispose();
+				}
+				backG = backBuffer.getGraphics();
+			}
+		}
 
-            // Fill in the Graphics context backG.
-            g.setColor(Color.white);
-            g.fillRect(0, 0, w, h);
+		if (backBuffer != null) {
 
-            // Now copy the new image to g.
-            // g.drawImage(backBuffer, 0, 0, null);
-        }
+			// Fill in the Graphics context backG.
+			g.setColor(Color.white);
+			g.fillRect(0, 0, w, h);
 
-    }
+			// Now copy the new image to g.
+			// g.drawImage(backBuffer, 0, 0, null);
+		}
+
+	}
 }
-

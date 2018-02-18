@@ -10,7 +10,7 @@ Created this file.
 Code affected: all .java files
 
 Reformatted using the Google Java style formatter.
-##################
+#########
 # Step 3
 
 Code affected: Path.leave
@@ -18,3 +18,11 @@ Code affected: Path.leave
 Flaw: unnecessary if, leading to duplicate code.
 
 Fix: replaced if statement with a single assignment statement.
+######### 
+# Step 5
+
+Code affected: 1.SwitchPath and TreasureHunter; 2.All java files.
+
+Flaw: 1.Wrong implementations in SwitchPath, although neighbour3 is defined, but still unable to turn to the third exit because of not being used; Wrong time to change direction in TreasureHunter 2.Not using accurate access control for all classes 
+
+Fix: 1.In SwitchPath, rewrite methods register(), unRegister(), exit(), nextPath() to fix different functionalities that end3 should has, and override the enter(); And rewrite method move() in TreasureHunter in that able to update the direction after check whether it is ok to enter or not. 2.Change all java files from default to public, add serialVersionUID.

@@ -3,124 +3,131 @@ import java.awt.geom.Ellipse2D;
 
 /*
 
-The TreasureHunter class. It has weight, c, and can draw()
-and move().
+ The TreasureHunter class. It has weight, c, and can draw()
+ and move().
 
-*/
+ */
 
-class TreasureHunter {
+public class TreasureHunter {
 
-    // My c.
-    protected Color color = Color.blue;
+	// My c.
+	protected Color color = Color.blue;
 
-    // My weight, in stone.
-    protected int weight;
+	// My weight, in stone.
+	protected int weight;
 
-    // My score.
-    public int score = 0;
+	// My score.
+	public int score = 0;
 
-    // My ID number.
-    private int id;
+	// My ID number.
+	private int id;
 
-    // The TreasureHunter that immediately follows me.
-    protected TreasureHunter nextTreasureHunter;
+	// The TreasureHunter that immediately follows me.
+	protected TreasureHunter nextTreasureHunter;
 
-    // The Path that I am currently occupying.
-    public Path currentPath;
+	// The Path that I am currently occupying.
+	public Path currentPath;
 
-    // The direction in which I entered the current Path.
-    protected Direction dir;
+	// The direction in which I entered the current Path.
+	protected Direction dir;
 
-    public TreasureHunter(int id) {
-        this.id = id;
-    }
+	public TreasureHunter(int id) {
+		this.id = id;
+	}
 
-    // Set me moving in direction d.
-    public void setDirection(Direction d) {
-        dir = d;
-    }
+	// Set me moving in direction d.
+	public void setDirection(Direction d) {
+		dir = d;
+	}
 
-    // Place this TreasureHunter on Path r.
-    public void setPath(Path r) {
-        currentPath = r;
-    }
+	public Direction getDirection() {
+		return dir;
+	}
 
-    // Move forward one PathPiece; t is the current PathPiece.  Tell
-    // all of the cars I am pulling to move as well.
-    public void move() {
+	// Place this TreasureHunter on Path r.
+	public void setPath(Path r) {
+		currentPath = r;
+	}
 
-        Direction nD = currentPath.exit(dir);
+	public Path getCurrentPath() {
+		return currentPath;
+	}
 
-        Direction nextDir = nD.opposite();
-        Path nextPath = currentPath.nextPath(dir);
-        dir = nextDir;
+	// Move forward one PathPiece; t is the current PathPiece. Tell
+	// all of the cars I am pulling to move as well.
+	public void move() {
 
-        if (nextPath.enter(this)) {
-            currentPath.leave();
-            currentPath = nextPath;
+		Direction nD = currentPath.exit(dir);
 
-            // We have to call this here rather than within currentPath.enter()
-            // because otherwise the wrong Path is used...
-            currentPath.repaint();
+		Direction nextDir = nD.opposite();
+		Path nextPath = currentPath.nextPath(dir);
 
-            if (nextTreasureHunter != null) {
-                nextTreasureHunter.move();
-            }
-        }
-    }
+		if (nextPath.enter(this)) {
+			dir = nextDir;
+			currentPath.leave();
+			currentPath = nextPath;
 
-    // Return true if the current Path is a SwitchPath and I am going
-    //straight through it.
-    public boolean SwitchStraight() {
+			// We have to call this here rather than within currentPath.enter()
+			// because otherwise the wrong Path is used...
+			currentPath.repaint();
 
-        if (currentPath instanceof SwitchPath) {
-            return true;
-        }
-        return false;
-    }
+			if (nextTreasureHunter != null) {
+				nextTreasureHunter.move();
+			}
+		}
+	}
 
-    // Return true if the current Path is a SwitchPath and I am going
-    // around a corner.
-    public boolean SwitchCorner() {
+	// Return true if the current Path is a SwitchPath and I am going
+	// straight through it.
+	public boolean SwitchStraight() {
 
-        if (currentPath instanceof SwitchPath) {
-            return true;
-        }
-        return false;
+		if (currentPath instanceof SwitchPath) {
+			return true;
+		}
+		return false;
+	}
 
-    }
+	// Return true if the current Path is a SwitchPath and I am going
+	// around a corner.
+	public boolean SwitchCorner() {
 
-    // Redraw myself.
-    public void draw(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g;
+		if (currentPath instanceof SwitchPath) {
+			return true;
+		}
+		return false;
 
-        GridLoc myLoc = currentPath.location;
-        Rectangle b = currentPath.bounds();
+	}
 
-        // the polygon to draw on the screen.
-        Polygon p;
+	// Redraw myself.
+	public void draw(Graphics g) {
+		Graphics2D g2 = (Graphics2D) g;
 
-        double width = b.width;
-        double height = b.height;
+		GridLoc myLoc = currentPath.location;
+		Rectangle b = currentPath.bounds();
 
-        Ellipse2D circle = new Ellipse2D.Double(width / 3, height / 3, width / 2, height / 2);
+		// the polygon to draw on the screen.
+		Polygon p;
 
-        g2.setColor(color);
-        g2.fill(circle);
-        g2.setStroke(new BasicStroke(2));
-        g2.draw(circle);
+		double width = b.width;
+		double height = b.height;
 
-        g2.setColor(Color.black);
-        g2.setStroke(new BasicStroke(5));
-        g2.setFont(new Font("default", Font.BOLD, 16));
-        g2.drawString(new Integer(id).toString(), (int) width / 2, (int) height / 2);
-    }
+		Ellipse2D circle = new Ellipse2D.Double(width / 3, height / 3,
+				width / 2, height / 2);
 
-    public String toString() {
-        return "TreasureHunter " + id;
-    }
+		g2.setColor(color);
+		g2.fill(circle);
+		g2.setStroke(new BasicStroke(2));
+		g2.draw(circle);
 
-    ;
+		g2.setColor(Color.black);
+		g2.setStroke(new BasicStroke(5));
+		g2.setFont(new Font("default", Font.BOLD, 16));
+		g2.drawString(new Integer(id).toString(), (int) width / 2,
+				(int) height / 2);
+	}
+
+	public String toString() {
+		return "TreasureHunter " + id;
+	};
 
 }
-
