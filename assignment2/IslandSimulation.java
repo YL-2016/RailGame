@@ -7,7 +7,6 @@ import java.awt.*;
 // The class IslandSimulation contains all the methods and instance variables
 // neccessary to keep track of and run the island simulation.
 
-
 public class IslandSimulation extends Frame {
 	/**
 	 * 
@@ -40,9 +39,9 @@ public class IslandSimulation extends Frame {
 		island.maps[0].setBackground(Color.white);
 		island.maps[0].show();
 
-		island.people[0] = new Person1(1);
+		island.people[0] = new Person("Person 1", 1);
 
-		island.people[1] = new Person2(2);
+		island.people[1] = new Person("Person 2", 2);
 
 		island.people[0].addToPath(island.maps[0], new Direction("east"),
 				new GridLoc(2, 2));
@@ -51,8 +50,8 @@ public class IslandSimulation extends Frame {
 				new GridLoc(1, 5));
 		island.people[1].setSpeed(350);
 
-		//island.people[0].start();
-		//island.people[1].start();
+		// island.people[0].start();
+		// island.people[1].start();
 
 	}
 }

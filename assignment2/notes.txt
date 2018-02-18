@@ -34,3 +34,11 @@ Code affected: ColorUtils.java, Treasure.java
 Flaw: Classes that are unnecessary for this program
 
 Fix: Remove redundant .java file
+######### 
+# Step 7
+
+Code affected: Person.java, Person1.java, Person2.java
+
+Flaw: Redundant Person1.java and Person2.java for this program
+
+Fix: Remove Person1.java, Person2.java and instance variable(totalWeight, forward) that are not used in Person.java, and implement addToPath() in Person.java
