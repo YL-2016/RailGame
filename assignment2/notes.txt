@@ -102,8 +102,16 @@ Fix: 1.Refactor redundant and unclean code; 2.Add access control;
 ######### 
 # Step 15
 
+Code affected: IslandSimulation.java, Person.java
+
+Flaw: 1.The code is not clear to demonstrate the functionalities of IslandSimulation, and it has some useless code for this program; 2.Person’s constructor should have a speed instance variable to be able to initialize different speed. 
+
+Fix: 1.Refactor the code and delete the useless code in IslandSimulation; 2. Add speed input to constructor in Person.
+######### 
+# Step 16
+
 Code affected: IslandSimulation.java
 
-Flaw: The code is not clear to demonstrate the functionalities of this file, and it has some useless code for this program
+Flaw: Wrong about how to construct a Person since Person has already be updated to have three inputs for constructor
 
-Fix: Refactor the code and delete the useless code
+Fix: Change to the correct way to construct Person.

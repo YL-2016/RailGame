@@ -34,12 +34,12 @@ public class IslandSimulation {
 		Person playerB = new Person("Person 2", 2, 350);
 
 		IslandSimulation island = new IslandSimulation();
-		island.addPlayer(playerA, new Direction(DirEnum.EAST),
-				new GridLocation(2, 2));
-		island.addPlayer(playerB, new Direction(DirEnum.SOUTH),
-				new GridLocation(1, 5));
+		island.addPlayer(playerA, Direction.EAST, new GridLocation(2,
+				2));
+		island.addPlayer(playerB, Direction.SOUTH, new GridLocation(
+				1, 5));
 
 		island.play();
 	}
-	
+
 }
