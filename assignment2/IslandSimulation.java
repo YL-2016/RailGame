@@ -7,51 +7,39 @@ import java.awt.*;
 // The class IslandSimulation contains all the methods and instance variables
 // neccessary to keep track of and run the island simulation.
 
-public class IslandSimulation extends Frame {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1442334223692062539L;
-
+public class IslandSimulation {
 	// The Paths on which the Persons run.
-	public static Map[] maps = new Map[4];
+	private Map map;
 
-	// The Person objects running on the Paths.
-	public static Person[] people = new Person[8];
+	public IslandSimulation() {
+		map = new Map();
+		map.setSize(540, 400);
+		map.setLocation(0, 0);
+		map.setBackground(Color.WHITE);
+	}
 
-	// The ThreadGroups; all Person objects running on the same Map are in the
-	// same
-	// ThreadGroup.
-	ThreadGroup[] TG = new ThreadGroup[8];
+	public void addPlayer(Person player, Direction dir, GridLocation loc) {
+		player.addIntoMap(map, dir, loc);
+	}
+
+	public void play() {
+		map.setVisible(true);
+	}
 
 	// main
 	// ------------------------------------------------------------------
 	// This is where it all starts.
-
 	public static void main(String[] args) {
+		Person playerA = new Person("Person 1", 1, 620);
+		Person playerB = new Person("Person 2", 2, 350);
 
 		IslandSimulation island = new IslandSimulation();
-
-		// Map 2.
-		island.maps[0] = new Map();
-		island.maps[0].resize(540, 400);
-		island.maps[0].move(0, 0);
-		island.maps[0].setBackground(Color.white);
-		island.maps[0].show();
-
-		island.people[0] = new Person("Person 1", 1);
-
-		island.people[1] = new Person("Person 2", 2);
-
-		island.people[0].addToPath(island.maps[0], new Direction(DirEnum.EAST),
+		island.addPlayer(playerA, new Direction(DirEnum.EAST),
 				new GridLocation(2, 2));
-		island.people[0].setSpeed(620);
-		island.people[1].addToPath(island.maps[0],
-				new Direction(DirEnum.SOUTH), new GridLocation(1, 5));
-		island.people[1].setSpeed(350);
+		island.addPlayer(playerB, new Direction(DirEnum.SOUTH),
+				new GridLocation(1, 5));
 
-		// island.people[0].start();
-		// island.people[1].start();
-
+		island.play();
 	}
+	
 }

@@ -18,13 +18,9 @@ public class Person extends Thread {
 	// The Map on which I am running.
 	private Map theMap;
 
-	public Person(String threadName, int id) {
+	public Person(String threadName, int id, long speed) {
 		super(threadName);
 		treasureHunter = new TreasureHunter(id);
-	}
-
-	// Set my delay between moves to d.
-	public void setSpeed(long speed) {
 		delay = speed;
 	}
 
@@ -37,7 +33,7 @@ public class Person extends Thread {
 	}
 
 	// Add me to Map T at location loc moving in direction dir.
-	public void addToPath(Map map, Direction dir, GridLocation loc) {
+	public void addIntoMap(Map map, Direction dir, GridLocation loc) {
 		treasureHunter.setDirection(dir);
 
 		theMap = map;
