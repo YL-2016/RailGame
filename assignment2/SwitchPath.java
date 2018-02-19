@@ -49,7 +49,8 @@ public abstract class SwitchPath extends Path {
 
 	@Override
 	public boolean exitOK(Direction direction) {
-		return direction.isSameDirection(end1) || direction.isSameDirection(end2)
+		return direction.isSameDirection(end1)
+				|| direction.isSameDirection(end2)
 				|| direction.isSameDirection(end3);
 	}
 
@@ -101,9 +102,11 @@ public abstract class SwitchPath extends Path {
 	public Path nextPath(Direction direction) {
 		if (validDir(direction)) {
 			if (goingStraight) {
-				return direction.isSameDirection(end1) ? neighbour2 : neighbour1;
+				return direction.isSameDirection(end1) ? neighbour2
+						: neighbour1;
 			} else {
-				return direction.isSameDirection(end1) ? neighbour3 : neighbour1;
+				return direction.isSameDirection(end1) ? neighbour3
+						: neighbour1;
 			}
 		}
 

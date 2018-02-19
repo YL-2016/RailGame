@@ -27,7 +27,7 @@ public class EWNPath extends SwitchPath {
 	}
 
 	@Override
-	public boolean enter(TreasureHunter newTreasureHunter) {
+	public synchronized boolean enter(TreasureHunter newTreasureHunter) {
 		DirEnum nextDir = getNextDirEnum(newTreasureHunter);
 
 		if (goingStraight) {

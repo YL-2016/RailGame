@@ -28,7 +28,7 @@ public class SNWPath extends SwitchPath {
 	}
 
 	@Override
-	public boolean enter(TreasureHunter newTreasureHunter) {
+	public synchronized boolean enter(TreasureHunter newTreasureHunter) {
 		DirEnum nextDir = getNextDirEnum(newTreasureHunter);
 
 		if (goingStraight) {
@@ -48,5 +48,5 @@ public class SNWPath extends SwitchPath {
 	public String toString() {
 		return "SNWPath";
 	}
-	
+
 }

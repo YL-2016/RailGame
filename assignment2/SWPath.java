@@ -13,7 +13,8 @@ public class SWPath extends CornerPath {
 	private static final long serialVersionUID = -2510001367098631817L;
 
 	public SWPath(GridLocation loc, Map map) {
-		super(new Direction(DirEnum.SOUTH), new Direction(DirEnum.WEST), loc, map);
+		super(new Direction(DirEnum.SOUTH), new Direction(DirEnum.WEST), loc,
+				map);
 		startAngle = 0;
 	}
 

@@ -4,7 +4,6 @@ The SNEPath class.  An SNEPath object has two ends,
 which must be opposite each other.
 
  */
-
 public class SNEPath extends SwitchPath {
 
 	/**
@@ -29,7 +28,7 @@ public class SNEPath extends SwitchPath {
 	}
 
 	@Override
-	public boolean enter(TreasureHunter newTreasureHunter) {
+	public synchronized boolean enter(TreasureHunter newTreasureHunter) {
 		DirEnum nextDir = getNextDirEnum(newTreasureHunter);
 
 		if (goingStraight) {

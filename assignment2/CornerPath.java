@@ -8,7 +8,6 @@ import java.awt.*;
  */
 
 public abstract class CornerPath extends TwoEndPath {
-
 	/**
 	 * 
 	 */

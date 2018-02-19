@@ -6,7 +6,6 @@ which must be opposite each other.
  */
 
 public class NSPath extends StraightPath {
-
 	/**
 	 * 
 	 */

@@ -3,9 +3,7 @@
 The NSWPath class.  An NSWPath object has three ends.
 
  */
-
 public class NSWPath extends SwitchPath {
-
 	/**
 	 * 
 	 */
@@ -28,7 +26,7 @@ public class NSWPath extends SwitchPath {
 	}
 
 	@Override
-	public boolean enter(TreasureHunter newTreasureHunter) {
+	public synchronized boolean enter(TreasureHunter newTreasureHunter) {
 		DirEnum nextDir = getNextDirEnum(newTreasureHunter);
 
 		if (goingStraight) {
@@ -48,4 +46,5 @@ public class NSWPath extends SwitchPath {
 	public String toString() {
 		return "NSWPath";
 	}
+
 }

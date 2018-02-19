@@ -5,7 +5,6 @@ The NSEPath class.  An NSEPath object has three exits.
  */
 
 public class NSEPath extends SwitchPath {
-
 	/**
 	 * 
 	 */
@@ -28,7 +27,7 @@ public class NSEPath extends SwitchPath {
 	}
 
 	@Override
-	public boolean enter(TreasureHunter newTreasureHunter) {
+	public synchronized boolean enter(TreasureHunter newTreasureHunter) {
 		DirEnum nextDir = getNextDirEnum(newTreasureHunter);
 
 		if (goingStraight) {
@@ -48,4 +47,5 @@ public class NSEPath extends SwitchPath {
 	public String toString() {
 		return "NSEPath";
 	}
+	
 }

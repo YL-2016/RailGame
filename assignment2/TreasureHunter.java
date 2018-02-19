@@ -7,7 +7,6 @@ import java.awt.geom.Ellipse2D;
  and move().
 
  */
-
 public class TreasureHunter {
 
 	// My c.
@@ -30,15 +29,19 @@ public class TreasureHunter {
 		color = Color.blue;
 		score = 0;
 	}
-	
-	public void plusOneScore(){
+
+	public int getId() {
+		return id;
+	}
+
+	public void plusOneScore() {
 		++score;
 	}
 
-	public int getScore(){
+	public int getScore() {
 		return score;
 	}
-	
+
 	public void setCurrentPath(Path currentPath) {
 		this.currentPath = currentPath;
 	}

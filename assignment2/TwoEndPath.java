@@ -4,7 +4,6 @@ The TwoEndPath class.  A TwoEndPath object has two ends,
 which may or may be not be opposite each other.
 
  */
-
 import java.awt.*;
 
 public abstract class TwoEndPath extends Path {
@@ -26,7 +25,8 @@ public abstract class TwoEndPath extends Path {
 
 	@Override
 	public boolean exitOK(Direction direction) {
-		return direction.isSameDirection(end1) || direction.isSameDirection(end2);
+		return direction.isSameDirection(end1)
+				|| direction.isSameDirection(end2);
 	}
 
 	@Override
@@ -78,4 +78,5 @@ public abstract class TwoEndPath extends Path {
 	public String toString() {
 		return "TwoEndPath";
 	}
+
 }

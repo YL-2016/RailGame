@@ -91,3 +91,12 @@ Code affected: MapPanel.java
 Flaw: 1.Not appropriate access control 2.Input name is not appropriate in addToPanel()
 
 Fix: 1.Add access control, make instance variable to private; 2.change the input name.
+######### 
+# Step 14
+
+Code affected: Map.java
+
+Flaw: 1.The code is not clean and has useless parts; 2.Not appropriate access control 
+
+Fix: 1.Refactor redundant and unclean code; 2.Add access control; 
+

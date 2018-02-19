@@ -11,7 +11,6 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
 public abstract class Path extends Canvas {
-
 	/**
 	 * 
 	 */
@@ -41,8 +40,8 @@ public abstract class Path extends Canvas {
 		initCoordinates();
 	}
 
-	public void setHasTreasure(boolean flag) {
-		hasTreasure = flag;
+	public void placeTreasure() {
+		hasTreasure = true;
 	}
 
 	// Return true iff there is a treasure hunter on me.
@@ -104,6 +103,7 @@ public abstract class Path extends Canvas {
 	}
 
 	// Update my display.
+	@Override
 	public void paint(Graphics g) {
 		draw(g);
 	}
@@ -145,6 +145,7 @@ public abstract class Path extends Canvas {
 	}
 
 	// Return myself as a string.
+	@Override
 	public String toString() {
 		return "Path";
 	}

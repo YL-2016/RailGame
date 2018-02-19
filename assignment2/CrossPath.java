@@ -7,7 +7,6 @@ import java.awt.*;
  */
 
 public class CrossPath extends Path {
-
 	/**
 	 * 
 	 */

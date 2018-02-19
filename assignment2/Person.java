@@ -7,7 +7,6 @@ the person is moving, the shorter the delay. Each turn, a Person will move
 one path piece in the current direction.
 
  */
-
 public class Person extends Thread {
 
 	// The amount of time between each of my turns.
@@ -29,8 +28,12 @@ public class Person extends Thread {
 		delay = speed;
 	}
 
-	public int getScore() {
-		return treasureHunter.getScore();
+	public String getScoreInfo() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("Player " + treasureHunter.getId() + ": ").append(
+				treasureHunter.getScore());
+
+		return sb.toString();
 	}
 
 	// Add me to Map T at location loc moving in direction dir.

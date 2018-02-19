@@ -4,16 +4,15 @@ The NWPath class.  A NWPath object has ends at the north
 and west.
 
  */
-
 public class NWPath extends CornerPath {
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 3148215773767407784L;
 
 	public NWPath(GridLocation loc, Map map) {
-		super(new Direction(DirEnum.NORTH), new Direction(DirEnum.WEST), loc, map);
+		super(new Direction(DirEnum.NORTH), new Direction(DirEnum.WEST), loc,
+				map);
 		startAngle = 270;
 	}
 
@@ -27,4 +26,5 @@ public class NWPath extends CornerPath {
 	public String toString() {
 		return "NWPath";
 	}
+
 }

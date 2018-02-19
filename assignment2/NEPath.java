@@ -6,7 +6,6 @@ and east.
  */
 
 public class NEPath extends CornerPath {
-
 	/**
 	 * 
 	 */

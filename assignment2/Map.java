@@ -14,25 +14,19 @@ public class Map extends Frame {
 	private static final long serialVersionUID = 4332879029912359649L;
 
 	// The Panel on which the Map appears.
-	MapPanel mapPanel;
+	private MapPanel mapPanel;
 
 	// ------------------------------------------------------------------
 	// The following items are the Paths and TreasureHunters on the Map.
 
-	private Path first; // The first Path in the graph.
-
 	// The maximum number of people I can hold.
-	private int MAX_PATHS = 10;
-	private Object[] personList = new Object[MAX_PATHS]; // The people running
-															// on me.
-	private int numPersons = 0;
+	private final static int MAX_PATHS = 10;
+	private final static int MAX_PERSONS = 10;
+	// The people running on me.
+	private Person[] personList = new Person[MAX_PERSONS];
+	private int numberOfPersons = 0;
 
 	private Path[][] paths; // The grid of paths.
-
-	// Whether my TreasureHunters are running. If true, no more Paths can be
-	// placed.
-	private boolean running = false;
-
 	// ------------------------------------------------------------------
 	// The following buttons define the interface for running
 	// and saving me.
@@ -46,129 +40,69 @@ public class Map extends Frame {
 
 	// Set up a new, simple Map.
 	public Map() {
-		paths = new Path[10][10];
+		buildGameLayout();
+		spawnPaths();
+		spawnTreasure(5, 3);
+	}
 
-		buildPath();
+	private void spawnPaths() {
+		paths = new Path[MAX_PATHS][MAX_PATHS];
+
+		paths[0][0] = new SEPath(new GridLocation(0, 0), this);
+		paths[0][1] = new EWPath(new GridLocation(0, 1), this);
+		paths[0][2] = new SWPath(new GridLocation(0, 2), this);
+		paths[1][2] = new NSPath(new GridLocation(1, 2), this);
+		paths[2][2] = new CrossPath(new GridLocation(2, 2), this);
+		paths[2][3] = new EWPath(new GridLocation(2, 3), this);
+		paths[2][4] = new EWPath(new GridLocation(2, 4), this);
+		paths[2][5] = new CrossPath(new GridLocation(2, 5), this);
+		paths[2][6] = new SWPath(new GridLocation(2, 6), this);
+		paths[3][6] = new NWPath(new GridLocation(3, 6), this);
+		paths[3][5] = new NEPath(new GridLocation(3, 5), this);
+		paths[1][5] = new SEPath(new GridLocation(1, 5), this);
+		paths[1][6] = new EWPath(new GridLocation(1, 6), this);
+		paths[1][7] = new SWPath(new GridLocation(1, 7), this);
+		paths[2][7] = new NSPath(new GridLocation(2, 7), this);
+		paths[3][7] = new NSPath(new GridLocation(3, 7), this);
+		paths[4][7] = new NWPath(new GridLocation(4, 7), this);
+		paths[4][6] = new EWPath(new GridLocation(4, 6), this);
+		paths[4][5] = new WESPath(new GridLocation(4, 5), this);
+		paths[4][4] = new NEPath(new GridLocation(4, 4), this);
+		paths[3][4] = new SWPath(new GridLocation(3, 4), this);
+		paths[3][3] = new EWSPath(new GridLocation(3, 3), this);
+		paths[4][3] = new SNWPath(new GridLocation(4, 3), this);
+		paths[5][3] = new NEPath(new GridLocation(5, 3), this);
+		paths[5][4] = new EWPath(new GridLocation(5, 4), this);
+		paths[5][5] = new NWPath(new GridLocation(5, 5), this);
+		paths[3][2] = new CrossPath(new GridLocation(3, 2), this);
+		paths[4][2] = new WENPath(new GridLocation(4, 2), this);
+		paths[4][1] = new NEPath(new GridLocation(4, 1), this);
+		paths[3][1] = new SEPath(new GridLocation(3, 1), this);
+		paths[2][1] = new EWPath(new GridLocation(2, 1), this);
+		paths[2][0] = new NEPath(new GridLocation(2, 0), this);
+		paths[1][0] = new NSPath(new GridLocation(1, 0), this);
 
 		for (int row = 0; row < paths.length; row++) {
 			for (int col = 0; col < paths[0].length; col++) {
-				paths[row][col] = new EmptyPath(this);
+				if (paths[row][col] == null) {
+					paths[row][col] = new EmptyPath(this);
+				}
 			}
 		}
 
-		paths[0][0] = new SEPath(new GridLocation(0, 0), this);
-
-		paths[0][1] = new EWPath(new GridLocation(0, 1), this);
-		connectPaths(paths[0][0], paths[0][1], new Direction(DirEnum.EAST));
-
-		paths[0][2] = new SWPath(new GridLocation(0, 2), this);
-		connectPaths(paths[0][1], paths[0][2], new Direction(DirEnum.EAST));
-
-		paths[1][2] = new NSPath(new GridLocation(1, 2), this);
-		connectPaths(paths[0][2], paths[1][2], new Direction(DirEnum.SOUTH));
-
-		paths[2][2] = new CrossPath(new GridLocation(2, 2), this);
-		connectPaths(paths[1][2], paths[2][2], new Direction(DirEnum.SOUTH));
-
-		paths[2][3] = new EWPath(new GridLocation(2, 3), this);
-		connectPaths(paths[2][2], paths[2][3], new Direction(DirEnum.EAST));
-
-		paths[2][4] = new EWPath(new GridLocation(2, 4), this);
-		connectPaths(paths[2][3], paths[2][4], new Direction(DirEnum.EAST));
-
-		paths[2][5] = new CrossPath(new GridLocation(2, 5), this);
-		connectPaths(paths[2][4], paths[2][5], new Direction(DirEnum.EAST));
-
-		paths[2][6] = new SWPath(new GridLocation(2, 6), this);
-		connectPaths(paths[2][5], paths[2][6], new Direction(DirEnum.EAST));
-
-		paths[3][6] = new NWPath(new GridLocation(3, 6), this);
-		connectPaths(paths[2][6], paths[3][6], new Direction(DirEnum.SOUTH));
-
-		paths[3][5] = new NEPath(new GridLocation(3, 5), this);
-		connectPaths(paths[3][6], paths[3][5], new Direction(DirEnum.WEST));
-		connectPaths(paths[2][5], paths[3][5], new Direction(DirEnum.SOUTH));
-
-		paths[1][5] = new SEPath(new GridLocation(1, 5), this);
-		connectPaths(paths[2][5], paths[1][5], new Direction(DirEnum.NORTH));
-
-		paths[1][6] = new EWPath(new GridLocation(1, 6), this);
-		connectPaths(paths[1][5], paths[1][6], new Direction(DirEnum.EAST));
-
-		paths[1][7] = new SWPath(new GridLocation(1, 7), this);
-		connectPaths(paths[1][6], paths[1][7], new Direction(DirEnum.EAST));
-
-		paths[2][7] = new NSPath(new GridLocation(2, 7), this);
-		connectPaths(paths[1][7], paths[2][7], new Direction(DirEnum.SOUTH));
-
-		paths[3][7] = new NSPath(new GridLocation(3, 7), this);
-		connectPaths(paths[2][7], paths[3][7], new Direction(DirEnum.SOUTH));
-
-		paths[4][7] = new NWPath(new GridLocation(4, 7), this);
-		connectPaths(paths[3][7], paths[4][7], new Direction(DirEnum.SOUTH));
-
-		paths[4][6] = new EWPath(new GridLocation(4, 6), this);
-		connectPaths(paths[4][7], paths[4][6], new Direction(DirEnum.WEST));
-
-		paths[4][5] = new WESPath(new GridLocation(4, 5), this);
-		connectPaths(paths[4][6], paths[4][5], new Direction(DirEnum.WEST));
-
-		paths[4][4] = new NEPath(new GridLocation(4, 4), this);
-		connectPaths(paths[4][5], paths[4][4], new Direction(DirEnum.WEST));
-
-		paths[3][4] = new SWPath(new GridLocation(3, 4), this);
-		connectPaths(paths[4][4], paths[3][4], new Direction(DirEnum.NORTH));
-
-		paths[3][3] = new EWSPath(new GridLocation(3, 3), this);
-		connectPaths(paths[3][4], paths[3][3], new Direction(DirEnum.WEST));
-
-		paths[4][3] = new SNWPath(new GridLocation(4, 3), this);
-		connectPaths(paths[4][3], paths[3][3], new Direction(DirEnum.NORTH));
-
-		paths[5][3] = new NEPath(new GridLocation(5, 3), this);
-		connectPaths(paths[5][3], paths[4][3], new Direction(DirEnum.NORTH));
-
-		paths[5][4] = new EWPath(new GridLocation(5, 4), this);
-		connectPaths(paths[5][4], paths[5][3], new Direction(DirEnum.WEST));
-
-		paths[5][5] = new NWPath(new GridLocation(5, 5), this);
-		connectPaths(paths[5][5], paths[5][4], new Direction(DirEnum.WEST));
-		connectPaths(paths[5][5], paths[4][5], new Direction(DirEnum.NORTH));
-
-		paths[3][2] = new CrossPath(new GridLocation(3, 2), this);
-		connectPaths(paths[3][3], paths[3][2], new Direction(DirEnum.WEST));
-		connectPaths(paths[2][2], paths[3][2], new Direction(DirEnum.SOUTH));
-
-		paths[4][2] = new WENPath(new GridLocation(4, 2), this);
-		connectPaths(paths[3][2], paths[4][2], new Direction(DirEnum.SOUTH));
-		connectPaths(paths[4][3], paths[4][2], new Direction(DirEnum.WEST));
-
-		paths[4][1] = new NEPath(new GridLocation(4, 1), this);
-		connectPaths(paths[4][2], paths[4][1], new Direction(DirEnum.WEST));
-
-		paths[3][1] = new SEPath(new GridLocation(3, 1), this);
-		connectPaths(paths[3][2], paths[3][1], new Direction(DirEnum.WEST));
-		connectPaths(paths[3][1], paths[4][1], new Direction(DirEnum.SOUTH));
-
-		paths[2][1] = new EWPath(new GridLocation(2, 1), this);
-		connectPaths(paths[2][2], paths[2][1], new Direction(DirEnum.WEST));
-
-		paths[2][0] = new NEPath(new GridLocation(2, 0), this);
-		connectPaths(paths[2][1], paths[2][0], new Direction(DirEnum.WEST));
-
-		paths[1][0] = new NSPath(new GridLocation(1, 0), this);
-		connectPaths(paths[2][0], paths[1][0], new Direction(DirEnum.NORTH));
-		connectPaths(paths[1][0], paths[0][0], new Direction(DirEnum.NORTH));
-
-		spawnTreasure(5, 3);
+		for (int row = 0; row < paths.length; row++) {
+			for (int col = 0; col < paths[0].length; col++) {
+				connectPath(row, col);
+			}
+		}
 
 		mapPanel.addToPanel(paths);
-		mapPanel.setBackground(new Color(152, 251, 152));
 	}
 
 	// Add the buttons for placing Paths.
-	protected void buildPath() {
+	private void buildGameLayout() {
 		mapPanel = new MapPanel();
+		mapPanel.setBackground(new Color(152, 251, 152));
 		add("Center", mapPanel);
 
 		runStopButton = new Button("Run");
@@ -198,52 +132,50 @@ public class Map extends Frame {
 	}
 
 	// Read Path-placing commands from the user.
+	@Override
 	public boolean handleEvent(Event evt) {
 		Object target = evt.target;
 
 		if (evt.id == Event.ACTION_EVENT) {
 			if (target instanceof Button) {
 				if ("Run".equals(evt.arg)) {
-					running = true;
-					for (int i = 0; i < numPersons; i++) {
-						((Person) personList[i]).start();
+					for (int i = 0; i < numberOfPersons; i++) {
+						personList[i].start();
 					}
 					((Button) target).setLabel("Suspend");
 				} else if ("Suspend".equals(evt.arg)) {
-					for (int i = 0; i < numPersons; i++) {
-						((Person) personList[i]).suspend();
+					for (int i = 0; i < numberOfPersons; i++) {
+						personList[i].suspend();
 					}
-					running = false;
 					((Button) target).setLabel("Resume");
 				} else if ("Resume".equals(evt.arg)) {
-					for (int i = 0; i < numPersons; i++) {
-						((Person) personList[i]).resume();
+					for (int i = 0; i < numberOfPersons; i++) {
+						personList[i].resume();
 					}
-					running = false;
 					((Button) target).setLabel("Suspend");
 				} else if ("Accelerate".equals(evt.arg)) {
-					for (int i = 0; i < numPersons; i++) {
-						((Person) personList[i]).accelerate();
+					for (int i = 0; i < numberOfPersons; i++) {
+						personList[i].accelerate();
 					}
 				} else if ("Decelerate".equals(evt.arg)) {
-					for (int i = 0; i < numPersons; i++) {
-						((Person) personList[i]).decelerate();
+					for (int i = 0; i < numberOfPersons; i++) {
+						personList[i].decelerate();
 					}
 				} else if ("Accelerate A Lot".equals(evt.arg)) {
-					for (int i = 0; i < numPersons; i++) {
-						((Person) personList[i]).accelerateALot();
+					for (int i = 0; i < numberOfPersons; i++) {
+						personList[i].accelerateALot();
 					}
 				} else if ("Decelerate A Lot".equals(evt.arg)) {
-					for (int i = 0; i < numPersons; i++) {
-						((Person) personList[i]).decelerateALot();
+					for (int i = 0; i < numberOfPersons; i++) {
+						personList[i].decelerateALot();
 					}
 				} else if ("Quit".equals(evt.arg)) {
-					for (int i = 0; i < numPersons; i++) {
-						((Person) personList[i]).stop();
+					for (int i = 0; i < numberOfPersons; i++) {
+						personList[i].stop();
 					}
-					running = false;
 					System.exit(0);
 				}
+
 				return true;
 			}
 		}
@@ -254,9 +186,9 @@ public class Map extends Frame {
 
 	// If test and r1 != null and r1.exitOK(r1), connect or unrester
 	// r1 and r2 depending on whether r2's exits match r1's.
-	protected void registerOrUnRegister(boolean test, Path r1, Path r2,
+	private void registerOrUnRegister(boolean flag, Path r1, Path r2,
 			Direction d) {
-		if (test && r1 != null && r1.exitOK(d)) {
+		if (flag && r1 != null && r1.exitOK(d)) {
 			if (r2.exitOK(d.getOpposite())) {
 				connectPaths(r1, r2, d);
 			} else {
@@ -265,8 +197,8 @@ public class Map extends Frame {
 		}
 	}
 
-	// Connect the Path at (row,col) to its neighbours.
-	protected void connectPath(int row, int col) {
+	// Connect the Path at (row, col) to its neighbours.
+	private void connectPath(int row, int col) {
 		Path r = paths[row][col];
 
 		Direction north = new Direction(DirEnum.NORTH);
@@ -288,7 +220,7 @@ public class Map extends Frame {
 	}
 
 	// Connect paths r1 and r2; r2 is in direction d from r1.
-	protected void connectPaths(Path path1, Path path2, Direction direction) {
+	private void connectPaths(Path path1, Path path2, Direction direction) {
 		path1.register(path2, direction);
 		path2.register(path1, direction.getOpposite());
 	}
@@ -320,16 +252,12 @@ public class Map extends Frame {
 
 	// Add T to myself.
 	public void addPerson(Person person) {
-		personList[numPersons] = person;
-		numPersons++;
+		personList[numberOfPersons++] = person;
 	}
 
 	public void updateStatusBar() {
-		System.out.println(((Person) personList[0]).getScore());
-		System.out.println(((Person) personList[1]).getScore());
-		statusLabel.setText("Player 1: " + ((Person) personList[0]).getScore()
-				+ " --- Player 2: " + ((Person) personList[1]).getScore());
-
+		statusLabel.setText(personList[0].getScoreInfo() + " --- "
+				+ personList[1].getScoreInfo());
 		statusLabel.repaint();
 	}
 
@@ -338,17 +266,14 @@ public class Map extends Frame {
 		int row, col;
 		// find suitable place for treasure to respawn
 		do {
-			row = (int) (Math.random() * 10);
-			col = (int) (Math.random() * 10);
-
-			System.out.println("Selected Row: " + row + " Col: " + col);
+			row = (int) (Math.random() * MAX_PATHS);
+			col = (int) (Math.random() * MAX_PATHS);
 		} while ((paths[row][col] instanceof EmptyPath));
-
 		spawnTreasure(row, col);
 	}
 
-	public void spawnTreasure(int row, int col) {
-		paths[row][col].setHasTreasure(true);
+	private void spawnTreasure(int row, int col) {
+		paths[row][col].placeTreasure();
 		paths[row][col].repaint();
 	}
 
