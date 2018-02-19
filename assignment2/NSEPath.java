@@ -11,8 +11,7 @@ public class NSEPath extends SwitchPath {
 	private static final long serialVersionUID = 8056777129646902726L;
 
 	public NSEPath(GridLocation loc, Map map) {
-		super(new Direction(DirEnum.NORTH), new Direction(DirEnum.SOUTH),
-				new Direction(DirEnum.EAST), loc, map);
+		super(Direction.NORTH, Direction.SOUTH, Direction.EAST, loc, map);
 		startAngle = 180;
 	}
 
@@ -47,5 +46,5 @@ public class NSEPath extends SwitchPath {
 	public String toString() {
 		return "NSEPath";
 	}
-	
+
 }

@@ -31,10 +31,10 @@ public class CrossPath extends Path {
 		super(loc, map);
 
 		color = Color.orange;
-		end1 = new Direction(DirEnum.NORTH);
-		end2 = new Direction(DirEnum.SOUTH);
-		end3 = new Direction(DirEnum.EAST);
-		end4 = new Direction(DirEnum.WEST);
+		end1 = Direction.NORTH;
+		end2 = Direction.SOUTH;
+		end3 = Direction.EAST;
+		end4 = Direction.WEST;
 	}
 
 	@Override

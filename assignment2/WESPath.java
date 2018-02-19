@@ -5,15 +5,13 @@ The WESPath class.  An WESPath object has three ends.
  */
 
 public class WESPath extends SwitchPath {
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4283767017166560122L;
 
 	public WESPath(GridLocation loc, Map map) {
-		super(new Direction(DirEnum.WEST), new Direction(DirEnum.EAST),
-				new Direction(DirEnum.SOUTH), loc, map);
+		super(Direction.WEST, Direction.EAST, Direction.SOUTH, loc, map);
 		startAngle = 0;
 	}
 
@@ -48,4 +46,5 @@ public class WESPath extends SwitchPath {
 	public String toString() {
 		return "WESPath";
 	}
+
 }

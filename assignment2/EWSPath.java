@@ -11,8 +11,7 @@ public class EWSPath extends SwitchPath {
 	private static final long serialVersionUID = 2526401617954515938L;
 
 	public EWSPath(GridLocation loc, Map map) {
-		super(new Direction(DirEnum.EAST), new Direction(DirEnum.WEST),
-				new Direction(DirEnum.SOUTH), loc, map);
+		super(Direction.EAST, Direction.WEST, Direction.SOUTH, loc, map);
 		startAngle = 90;
 	}
 

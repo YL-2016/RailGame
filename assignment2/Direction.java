@@ -1,6 +1,10 @@
 // A direction; one of 'north', 'south', 'east' and 'west'.
 
 public class Direction {
+	public static final Direction SOUTH = new Direction(DirEnum.SOUTH);
+	public static final Direction NORTH = new Direction(DirEnum.NORTH);
+	public static final Direction WEST = new Direction(DirEnum.WEST);
+	public static final Direction EAST = new Direction(DirEnum.EAST);
 
 	private DirEnum direction;
 
@@ -19,13 +23,13 @@ public class Direction {
 	public Direction getOpposite() {
 		switch (direction) {
 		case NORTH:
-			return new Direction(DirEnum.SOUTH);
+			return Direction.SOUTH;
 		case SOUTH:
-			return new Direction(DirEnum.NORTH);
+			return Direction.NORTH;
 		case EAST:
-			return new Direction(DirEnum.WEST);
+			return Direction.WEST;
 		case WEST:
-			return new Direction(DirEnum.EAST);
+			return Direction.EAST;
 		}
 
 		return null;

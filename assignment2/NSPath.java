@@ -12,8 +12,7 @@ public class NSPath extends StraightPath {
 	private static final long serialVersionUID = -4809188185690066446L;
 
 	public NSPath(GridLocation loc, Map map) {
-		super(new Direction(DirEnum.NORTH), new Direction(DirEnum.SOUTH), loc,
-				map);
+		super(Direction.NORTH, Direction.SOUTH, loc, map);
 	}
 
 	@Override

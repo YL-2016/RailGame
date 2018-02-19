@@ -10,8 +10,7 @@ public class NSWPath extends SwitchPath {
 	private static final long serialVersionUID = 8296479325132751896L;
 
 	public NSWPath(GridLocation loc, Map map) {
-		super(new Direction(DirEnum.NORTH), new Direction(DirEnum.SOUTH),
-				new Direction(DirEnum.WEST), loc, map);
+		super(Direction.NORTH, Direction.SOUTH, Direction.WEST, loc, map);
 		startAngle = 270;
 	}
 

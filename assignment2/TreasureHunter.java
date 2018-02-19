@@ -42,10 +42,6 @@ public class TreasureHunter {
 		return score;
 	}
 
-	public void setCurrentPath(Path currentPath) {
-		this.currentPath = currentPath;
-	}
-
 	// Set me moving in direction d.
 	public void setDirection(Direction direction) {
 		dir = direction;
@@ -56,7 +52,7 @@ public class TreasureHunter {
 	}
 
 	// Place this TreasureHunter on Path r.
-	public void setPath(Path path) {
+	public void setCurrentPath(Path path) {
 		currentPath = path;
 	}
 

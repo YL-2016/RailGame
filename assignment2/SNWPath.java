@@ -5,15 +5,13 @@ The SNWPath class.  An SNWPath object has three ends.
  */
 
 public class SNWPath extends SwitchPath {
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3693104809275455409L;
 
 	public SNWPath(GridLocation loc, Map map) {
-		super(new Direction(DirEnum.SOUTH), new Direction(DirEnum.NORTH),
-				new Direction(DirEnum.WEST), loc, map);
+		super(Direction.SOUTH, Direction.NORTH, Direction.WEST, loc, map);
 		startAngle = 0;
 	}
 

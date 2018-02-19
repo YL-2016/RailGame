@@ -50,7 +50,11 @@ public class Map extends Frame {
 
 		paths[0][0] = new SEPath(new GridLocation(0, 0), this);
 		paths[0][1] = new EWPath(new GridLocation(0, 1), this);
-		paths[0][2] = new SWPath(new GridLocation(0, 2), this);
+		paths[0][2] = new WESPath(new GridLocation(0, 2), this);
+		paths[0][3] = new EWPath(new GridLocation(0, 3), this);
+		paths[0][4] = new EWPath(new GridLocation(0, 4), this);
+		paths[0][5] = new EWPath(new GridLocation(0, 5), this);
+		paths[0][6] = new SWPath(new GridLocation(0, 6), this);
 		paths[1][2] = new NSPath(new GridLocation(1, 2), this);
 		paths[2][2] = new CrossPath(new GridLocation(2, 2), this);
 		paths[2][3] = new EWPath(new GridLocation(2, 3), this);
@@ -60,18 +64,23 @@ public class Map extends Frame {
 		paths[3][6] = new NWPath(new GridLocation(3, 6), this);
 		paths[3][5] = new NEPath(new GridLocation(3, 5), this);
 		paths[1][5] = new SEPath(new GridLocation(1, 5), this);
-		paths[1][6] = new EWPath(new GridLocation(1, 6), this);
+		paths[1][6] = new WENPath(new GridLocation(1, 6), this);
 		paths[1][7] = new SWPath(new GridLocation(1, 7), this);
 		paths[2][7] = new NSPath(new GridLocation(2, 7), this);
 		paths[3][7] = new NSPath(new GridLocation(3, 7), this);
-		paths[4][7] = new NWPath(new GridLocation(4, 7), this);
+		paths[4][7] = new SNWPath(new GridLocation(4, 7), this);
 		paths[4][6] = new EWPath(new GridLocation(4, 6), this);
 		paths[4][5] = new WESPath(new GridLocation(4, 5), this);
 		paths[4][4] = new NEPath(new GridLocation(4, 4), this);
 		paths[3][4] = new SWPath(new GridLocation(3, 4), this);
 		paths[3][3] = new EWSPath(new GridLocation(3, 3), this);
 		paths[4][3] = new SNWPath(new GridLocation(4, 3), this);
-		paths[5][3] = new NEPath(new GridLocation(5, 3), this);
+		paths[4][0] = new NSPath(new GridLocation(4, 0), this);
+		paths[3][0] = new NSPath(new GridLocation(3, 0), this);
+		paths[5][0] = new NEPath(new GridLocation(5, 0), this);
+		paths[5][1] = new EWPath(new GridLocation(5, 1), this);
+		paths[5][2] = new EWPath(new GridLocation(5, 2), this);
+		paths[5][3] = new CrossPath(new GridLocation(5, 3), this);
 		paths[5][4] = new EWPath(new GridLocation(5, 4), this);
 		paths[5][5] = new NWPath(new GridLocation(5, 5), this);
 		paths[3][2] = new CrossPath(new GridLocation(3, 2), this);
@@ -79,8 +88,18 @@ public class Map extends Frame {
 		paths[4][1] = new NEPath(new GridLocation(4, 1), this);
 		paths[3][1] = new SEPath(new GridLocation(3, 1), this);
 		paths[2][1] = new EWPath(new GridLocation(2, 1), this);
-		paths[2][0] = new NEPath(new GridLocation(2, 0), this);
+		paths[2][0] = new NSEPath(new GridLocation(2, 0), this);
 		paths[1][0] = new NSPath(new GridLocation(1, 0), this);
+		paths[6][3] = new NSPath(new GridLocation(6, 3), this);
+		paths[7][3] = new NSPath(new GridLocation(7, 3), this);
+		paths[8][3] = new NEPath(new GridLocation(8, 3), this);
+		paths[8][4] = new EWPath(new GridLocation(8, 4), this);
+		paths[8][5] = new EWPath(new GridLocation(8, 5), this);
+		paths[8][6] = new EWPath(new GridLocation(8, 6), this);
+		paths[8][7] = new NWPath(new GridLocation(8, 7), this);
+		paths[7][7] = new NSPath(new GridLocation(7, 7), this);
+		paths[6][7] = new NSPath(new GridLocation(6, 7), this);
+		paths[5][7] = new NSPath(new GridLocation(5, 7), this);
 
 		for (int row = 0; row < paths.length; row++) {
 			for (int col = 0; col < paths[0].length; col++) {
@@ -231,7 +250,7 @@ public class Map extends Frame {
 		int col = loc.getCol();
 
 		paths[row][col].enter(hunter);
-		hunter.setPath(paths[row][col]);
+		hunter.setCurrentPath(paths[row][col]);
 	}
 
 	// paint
@@ -256,8 +275,15 @@ public class Map extends Frame {
 	}
 
 	public void updateStatusBar() {
-		statusLabel.setText(personList[0].getScoreInfo() + " --- "
-				+ personList[1].getScoreInfo());
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < numberOfPersons; i++) {
+			sb.append(personList[i].getScoreInfo());
+			if (i != numberOfPersons - 1) {
+				sb.append(" --- ");
+			}
+		}
+
+		statusLabel.setText(sb.toString());
 		statusLabel.repaint();
 	}
 

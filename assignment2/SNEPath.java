@@ -5,15 +5,13 @@ which must be opposite each other.
 
  */
 public class SNEPath extends SwitchPath {
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1880372384285140537L;
 
 	public SNEPath(GridLocation loc, Map T) {
-		super(new Direction(DirEnum.SOUTH), new Direction(DirEnum.NORTH),
-				new Direction(DirEnum.EAST), loc, T);
+		super(Direction.SOUTH, Direction.NORTH, Direction.EAST, loc, T);
 		startAngle = 90;
 	}
 

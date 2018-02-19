@@ -11,8 +11,7 @@ public class EWNPath extends SwitchPath {
 	private static final long serialVersionUID = 421262872029126357L;
 
 	public EWNPath(GridLocation loc, Map map) {
-		super(new Direction(DirEnum.EAST), new Direction(DirEnum.WEST),
-				new Direction(DirEnum.NORTH), loc, map);
+		super(Direction.EAST, Direction.WEST, Direction.NORTH, loc, map);
 		startAngle = 180;
 	}
 

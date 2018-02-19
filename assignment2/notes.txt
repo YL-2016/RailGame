@@ -115,3 +115,11 @@ Code affected: IslandSimulation.java
 Flaw: Wrong about how to construct a Person since Person has already be updated to have three inputs for constructor
 
 Fix: Change to the correct way to construct Person.
+######### 
+# Step 17
+
+Code affected: Direction.java
+
+Flaw: There is code smell that from the return of getOpposite(),we can de clear these return as a static final variable at the beginning of the class;
+
+Fix: add static final variable to as return for getOpposite(); 
