@@ -10,10 +10,14 @@ one path piece in the current direction.
 
 public class Person extends Thread {
 
-	private long delay; // The amount of time between each of my turns.
-	protected TreasureHunter treasureHunter; // The TreasureHunter this person
-												// represents.
-	protected Map theMap; // The Map on which I am running.
+	// The amount of time between each of my turns.
+	private long delay;
+
+	// The TreasureHunter this person represents
+	private TreasureHunter treasureHunter;
+
+	// The Map on which I am running.
+	private Map theMap;
 
 	public Person(String threadName, int id) {
 		super(threadName);
@@ -26,45 +30,16 @@ public class Person extends Thread {
 	}
 
 	public int getScore() {
-		return treasureHunter.score;
-	}
-
-	public void setScore(int score) {
-		treasureHunter.score = score;
+		return treasureHunter.getScore();
 	}
 
 	// Add me to Map T at location loc moving in direction dir.
 	public void addToPath(Map map, Direction dir, GridLocation loc) {
+		treasureHunter.setDirection(dir);
+
 		theMap = map;
 		theMap.addPerson(this);
-
-		TreasureHunter currPerson = treasureHunter;
-		while (currPerson != null) {
-			currPerson.setDirection(dir);
-			theMap.addCar(loc, currPerson);
-
-			// Now figure out the dir for the next TreasureHunter,
-			// and the next loc.
-
-			if (dir.equals("north")) {
-				//loc.row--;
-			} else if (dir.equals("south")) {
-				//loc.row++;
-			} else if (dir.equals("east")) {
-				//loc.col++;
-			} else if (dir.equals("west")) {
-				//loc.col--;
-			}
-
-			Direction nD = currPerson.currentPath.exit(dir);
-			Path nextPath = currPerson.currentPath.nextPath(nD);
-
-			// Now I know the Path on which the next currPerson will
-			// be. Find out how it got on to it.
-			dir = nextPath.exit(dir.getOpposite());
-
-			currPerson = currPerson.nextTreasureHunter;
-		}
+		theMap.setHunderInfo(loc, treasureHunter);
 	}
 
 	// Halve my delay.
@@ -95,10 +70,10 @@ public class Person extends Thread {
 		while (true) {
 			treasureHunter.move();
 
-			// Sleep for 1 second.
 			try {
 				sleep(delay);
 			} catch (InterruptedException e) {
+
 			}
 		}
 	}

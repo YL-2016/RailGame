@@ -74,4 +74,12 @@ Code affected: Files related with GridLoc.java(i.e. classes call GridLoc)
 
 Flaw: 1.Wrong access control, the instance variables should be private; 2.From Java naming convention, GridLoc is not a proper name for this class 
 
-Fix: 1.Add access control(public to private); 2.rename it to GridLocation, and make updates to all .java file that use GridLocation.java
+Fix: 1.Add access control(public to private) and add setter and getter methods; 2.rename it to GridLocation, and make updates to all .java file that use GridLocation.java
+######### 
+# Step 12
+
+Code affected: Person.java, TreasureHunter.java
+
+Flaw: 1.Code is not clean that has useless part in methods and unused instance variables; 2.not proper assess control for instance  variables
+
+Fix: 1.delete useless code and instance variables; 2. set public instance variables to private

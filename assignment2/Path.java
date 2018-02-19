@@ -88,7 +88,7 @@ public abstract class Path extends Canvas {
 		currentTreasureHunter = newTreasureHunter;
 
 		if (hasTreasure) {
-			currentTreasureHunter.score = currentTreasureHunter.score + 1;
+			currentTreasureHunter.plusOneScore();
 			hasTreasure = false;
 			theMap.updateStatusBar();
 			theMap.spawnTreasure();

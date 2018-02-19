@@ -294,7 +294,7 @@ public class Map extends Frame {
 	}
 
 	// Add e to the path at location loc.
-	public void addCar(GridLocation loc, TreasureHunter hunter) {
+	public void setHunderInfo(GridLocation loc, TreasureHunter hunter) {
 		int row = loc.getRow();
 		int col = loc.getCol();
 
@@ -305,7 +305,7 @@ public class Map extends Frame {
 	// paint
 	// ------------------------------------------------------------------
 	// Paint the display.
-
+	@Override
 	public void paint(Graphics g) {
 		update(g);
 	}
@@ -313,7 +313,7 @@ public class Map extends Frame {
 	// update
 	// ------------------------------------------------------------------
 	// Update the display; tell all my Paths to update themselves.
-
+	@Override
 	public void update(Graphics g) {
 		mapPanel.repaint();
 	}

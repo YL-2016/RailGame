@@ -11,33 +11,41 @@ import java.awt.geom.Ellipse2D;
 public class TreasureHunter {
 
 	// My c.
-	protected Color color = Color.blue;
-
-	// My weight, in stone.
-	protected int weight;
+	private Color color;
 
 	// My score.
-	public int score = 0;
+	private int score;
 
 	// My ID number.
 	private int id;
 
-	// The TreasureHunter that immediately follows me.
-	protected TreasureHunter nextTreasureHunter;
-
 	// The Path that I am currently occupying.
-	public Path currentPath;
+	private Path currentPath;
 
 	// The direction in which I entered the current Path.
-	protected Direction dir;
+	private Direction dir;
 
 	public TreasureHunter(int id) {
 		this.id = id;
+		color = Color.blue;
+		score = 0;
+	}
+	
+	public void plusOneScore(){
+		++score;
+	}
+
+	public int getScore(){
+		return score;
+	}
+	
+	public void setCurrentPath(Path currentPath) {
+		this.currentPath = currentPath;
 	}
 
 	// Set me moving in direction d.
-	public void setDirection(Direction d) {
-		dir = d;
+	public void setDirection(Direction direction) {
+		dir = direction;
 	}
 
 	public Direction getDirection() {
@@ -45,8 +53,8 @@ public class TreasureHunter {
 	}
 
 	// Place this TreasureHunter on Path r.
-	public void setPath(Path r) {
-		currentPath = r;
+	public void setPath(Path path) {
+		currentPath = path;
 	}
 
 	public Path getCurrentPath() {
@@ -56,10 +64,7 @@ public class TreasureHunter {
 	// Move forward one PathPiece; t is the current PathPiece. Tell
 	// all of the cars I am pulling to move as well.
 	public void move() {
-
-		Direction nD = currentPath.exit(dir);
-
-		Direction nextDir = nD.getOpposite();
+		Direction nextDir = currentPath.exit(dir).getOpposite();
 		Path nextPath = currentPath.nextPath(dir);
 
 		if (nextPath.enter(this)) {
@@ -70,32 +75,7 @@ public class TreasureHunter {
 			// We have to call this here rather than within currentPath.enter()
 			// because otherwise the wrong Path is used...
 			currentPath.repaint();
-
-			if (nextTreasureHunter != null) {
-				nextTreasureHunter.move();
-			}
 		}
-	}
-
-	// Return true if the current Path is a SwitchPath and I am going
-	// straight through it.
-	public boolean SwitchStraight() {
-
-		if (currentPath instanceof SwitchPath) {
-			return true;
-		}
-		return false;
-	}
-
-	// Return true if the current Path is a SwitchPath and I am going
-	// around a corner.
-	public boolean SwitchCorner() {
-
-		if (currentPath instanceof SwitchPath) {
-			return true;
-		}
-		return false;
-
 	}
 
 	// Redraw myself.
@@ -122,8 +102,9 @@ public class TreasureHunter {
 				(int) height / 2);
 	}
 
+	@Override
 	public String toString() {
 		return "TreasureHunter " + id;
-	};
+	}
 
 }
