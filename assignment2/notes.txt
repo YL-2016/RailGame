@@ -66,4 +66,12 @@ Code affected: Person.java
 Flaw: We need to consider more about the change of speed, there is no limit for deceleration and there is no check if deceleration is valid(e.g.if the speed is less than 2, then we should not be able to decelerate it again), thus this will cause error
 
 Fix: Add limit for all methods related to the deceleration of speed and check if it is valid to decelerate before executing
- 
+
+######### 
+# Step 11
+
+Code affected: Files related with GridLoc.java(i.e. classes call GridLoc)
+
+Flaw: 1.Wrong access control, the instance variables should be private; 2.From Java naming convention, GridLoc is not a proper name for this class 
+
+Fix: 1.Add access control(public to private); 2.rename it to GridLocation, and make updates to all .java file that use GridLocation.java

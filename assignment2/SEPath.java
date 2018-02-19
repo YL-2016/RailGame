@@ -12,7 +12,7 @@ public class SEPath extends CornerPath {
 	 */
 	private static final long serialVersionUID = 6754241322561311322L;
 
-	public SEPath(GridLoc loc, Map map) {
+	public SEPath(GridLocation loc, Map map) {
 		super(new Direction(DirEnum.SOUTH), new Direction(DirEnum.EAST), loc, map);
 		startAngle = 90;
 	}

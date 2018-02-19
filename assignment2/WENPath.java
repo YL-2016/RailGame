@@ -11,7 +11,7 @@ public class WENPath extends SwitchPath {
 	 */
 	private static final long serialVersionUID = -8193923509772126418L;
 
-	public WENPath(GridLoc loc, Map map) {
+	public WENPath(GridLocation loc, Map map) {
 		super(new Direction(DirEnum.WEST), new Direction(DirEnum.EAST),
 				new Direction(DirEnum.NORTH), loc, map);
 		startAngle = 270;

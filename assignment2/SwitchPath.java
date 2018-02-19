@@ -38,7 +38,7 @@ public abstract class SwitchPath extends Path {
 	protected boolean goingStraight;
 
 	public SwitchPath(Direction dir1, Direction dir2, Direction dir3,
-			GridLoc loc, Map map) {
+			GridLocation loc, Map map) {
 		super(loc, map);
 		color = Color.magenta;
 		arcAngle = 90;

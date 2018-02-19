@@ -25,7 +25,7 @@ public abstract class Path extends Canvas {
 	private boolean isOccupied; // isOccupied
 	private boolean hasTreasure; // hasTreasure
 	private TreasureHunter currentTreasureHunter; // currentTreasureHunter
-	private GridLoc location; // location
+	private GridLocation location; // location
 	private Map theMap; // theMap
 
 	public Path(Map map) {
@@ -34,7 +34,7 @@ public abstract class Path extends Canvas {
 		setSize(size, size);
 	}
 
-	public Path(GridLoc loc, Map map) {
+	public Path(GridLocation loc, Map map) {
 		location = loc;
 		theMap = map;
 		isOccupied = false;
@@ -50,11 +50,11 @@ public abstract class Path extends Canvas {
 		return isOccupied;
 	}
 
-	public void setGridLocation(GridLoc loc) {
+	public void setGridLocation(GridLocation loc) {
 		location = loc;
 	}
 
-	public GridLoc getGridLocation() {
+	public GridLocation getGridLocation() {
 		return location;
 	}
 

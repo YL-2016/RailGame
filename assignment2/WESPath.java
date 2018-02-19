@@ -11,7 +11,7 @@ public class WESPath extends SwitchPath {
 	 */
 	private static final long serialVersionUID = -4283767017166560122L;
 
-	public WESPath(GridLoc loc, Map map) {
+	public WESPath(GridLocation loc, Map map) {
 		super(new Direction(DirEnum.WEST), new Direction(DirEnum.EAST),
 				new Direction(DirEnum.SOUTH), loc, map);
 		startAngle = 0;

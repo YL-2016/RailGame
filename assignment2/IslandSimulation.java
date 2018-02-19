@@ -44,10 +44,10 @@ public class IslandSimulation extends Frame {
 		island.people[1] = new Person("Person 2", 2);
 
 		island.people[0].addToPath(island.maps[0], new Direction(DirEnum.EAST),
-				new GridLoc(2, 2));
+				new GridLocation(2, 2));
 		island.people[0].setSpeed(620);
 		island.people[1].addToPath(island.maps[0],
-				new Direction(DirEnum.SOUTH), new GridLoc(1, 5));
+				new Direction(DirEnum.SOUTH), new GridLocation(1, 5));
 		island.people[1].setSpeed(350);
 
 		// island.people[0].start();

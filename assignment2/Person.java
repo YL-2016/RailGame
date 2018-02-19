@@ -34,7 +34,7 @@ public class Person extends Thread {
 	}
 
 	// Add me to Map T at location loc moving in direction dir.
-	public void addToPath(Map map, Direction dir, GridLoc loc) {
+	public void addToPath(Map map, Direction dir, GridLocation loc) {
 		theMap = map;
 		theMap.addPerson(this);
 
@@ -47,13 +47,13 @@ public class Person extends Thread {
 			// and the next loc.
 
 			if (dir.equals("north")) {
-				loc.row--;
+				//loc.row--;
 			} else if (dir.equals("south")) {
-				loc.row++;
+				//loc.row++;
 			} else if (dir.equals("east")) {
-				loc.col++;
+				//loc.col++;
 			} else if (dir.equals("west")) {
-				loc.col--;
+				//loc.col--;
 			}
 
 			Direction nD = currPerson.currentPath.exit(dir);

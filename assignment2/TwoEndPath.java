@@ -17,7 +17,7 @@ public abstract class TwoEndPath extends Path {
 	private Path neighbour1; // The Path in the direction end1.
 	private Path neighbour2; // The Path in the direction end2.
 
-	public TwoEndPath(Direction dir1, Direction dir2, GridLoc loc, Map map) {
+	public TwoEndPath(Direction dir1, Direction dir2, GridLocation loc, Map map) {
 		super(loc, map);
 		color = Color.orange;
 		end1 = dir1;

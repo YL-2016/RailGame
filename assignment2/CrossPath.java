@@ -28,7 +28,7 @@ public class CrossPath extends Path {
 	private Path neighbour3; // The Path in the direction end3.
 	private Path neighbour4; // The Path in the direction end4.
 
-	public CrossPath(GridLoc loc, Map map) {
+	public CrossPath(GridLocation loc, Map map) {
 		super(loc, map);
 
 		color = Color.orange;

@@ -11,7 +11,7 @@ public class SNWPath extends SwitchPath {
 	 */
 	private static final long serialVersionUID = -3693104809275455409L;
 
-	public SNWPath(GridLoc loc, Map map) {
+	public SNWPath(GridLocation loc, Map map) {
 		super(new Direction(DirEnum.SOUTH), new Direction(DirEnum.NORTH),
 				new Direction(DirEnum.WEST), loc, map);
 		startAngle = 0;
