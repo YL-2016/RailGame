@@ -53,8 +53,17 @@ Fix: 1.Make them abstraction(exitOK(), register(), unRegister(), exit(), nextPat
 ######### 
 # Step 9
 
-Code affected: Direction.java
+Code affected: Direction.java, and all .java file that will call Direction.java
 
 Flaw: The structure of this code is gross and we need a more neat way write this class
 
-Fix: Using enumerated type and add a DirEnum.java
+Fix: Using enumerated type and add a DirEnum.java, and make adjustments	to all .java file that need to call Direction.java
+######### 
+# Step 10
+
+Code affected: Person.java
+
+Flaw: We need to consider more about the change of speed, there is no limit for deceleration and there is no check if deceleration is valid(e.g.if the speed is less than 2, then we should not be able to decelerate it again), thus this will cause error
+
+Fix: Add limit for all methods related to the deceleration of speed and check if it is valid to decelerate before executing
+ 

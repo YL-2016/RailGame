@@ -10,11 +10,9 @@ one path piece in the current direction.
 
 public class Person extends Thread {
 
-	private int delay; // The amount of time between each of my turns.
-
+	private long delay; // The amount of time between each of my turns.
 	protected TreasureHunter treasureHunter; // The TreasureHunter this person
 												// represents.
-
 	protected Map theMap; // The Map on which I am running.
 
 	public Person(String threadName, int id) {
@@ -23,8 +21,8 @@ public class Person extends Thread {
 	}
 
 	// Set my delay between moves to d.
-	public void setSpeed(int d) {
-		delay = d;
+	public void setSpeed(long speed) {
+		delay = speed;
 	}
 
 	public int getScore() {
@@ -36,8 +34,8 @@ public class Person extends Thread {
 	}
 
 	// Add me to Map T at location loc moving in direction dir.
-	public void addToPath(Map T, Direction dir, GridLoc loc) {
-		theMap = T;
+	public void addToPath(Map map, Direction dir, GridLoc loc) {
+		theMap = map;
 		theMap.addPerson(this);
 
 		TreasureHunter currPerson = treasureHunter;
@@ -71,7 +69,9 @@ public class Person extends Thread {
 
 	// Halve my delay.
 	public void accelerateALot() {
-		delay /= 2;
+		if (delay / 2 >= 1) {
+			delay /= 2;
+		}
 	}
 
 	// Double my delay.
@@ -81,7 +81,9 @@ public class Person extends Thread {
 
 	// Speed up by a factor of 20ms.
 	public void accelerate() {
-		delay -= 20;
+		if (delay - 20 >= 1) {
+			delay -= 20;
+		}
 	}
 
 	// Slow down by a factor of 20ms.
