@@ -83,3 +83,11 @@ Code affected: Person.java, TreasureHunter.java
 Flaw: 1.Code is not clean that has useless part in methods and unused instance variables; 2.not proper assess control for instance  variables
 
 Fix: 1.delete useless code and instance variables; 2. set public instance variables to private
+######### 
+# Step 13
+
+Code affected: MapPanel.java
+
+Flaw: 1.Not appropriate access control 2.Input name is not appropriate in addToPanel()
+
+Fix: 1.Add access control, make instance variable to private; 2.change the input name.
