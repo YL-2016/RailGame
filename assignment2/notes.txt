@@ -23,9 +23,24 @@ Fix: replaced if statement with a single assignment statement.
 
 Code affected: 1.SwitchPath.java and TreasureHunter.java; 2.All java files.
 
-Flaw: 1.Wrong implementations in SwitchPath, although neighbour3 is defined, but still unable to turn to the third exit because of not being used; Wrong time to change direction in TreasureHunter 2.Not using accurate access control for all classes 
+Flaw: 1.Wrong implementations in SwitchPath, although neighbour3 is defined, but still unable to turn to the third exit 
+        because of not being used. In addition, the Person should not keep going onto the “break”(grey colour) paths, 
+        thus in this situation, Person can only continue going when we make “connection” for them, i.e. switch the path 
+        so that they have magenta path to go. In my design, Person can only move in yellow paths or 
+        yellow-magenta-yellow path (i.e. one magenta path is connected with yellow path in both direction). 
+        When Person can’t choose have any of those two kinds road, they should stop until the time we make adjustments 
+        to the magenta path(make connection). In other word, in this program, there isn’t any situations that Person can 
+        go through the “break path” (grey path). Besides, there is wrong about change direction in move() in TreasureHunter 
+        and the second if statement in move() is useless.
+      2.Not using accurate access control for all classes
+      3.SwitchStraight() and SwitchCorner() in TreasureHunter is useless, the method name of setPath() is not clear, 
+        and missing getters() for currentPath in TreasureHunter
 
-Fix: 1.In SwitchPath, rewrite methods register(), unRegister(), exit(), nextPath() to fix different functionalities that end3 should has, and override the enter(); And rewrite method move() in TreasureHunter in that able to update the direction after check whether it is ok to enter or not. 2.Change all java files from default to public, add serialVersionUID.
+Fix: 1.In SwitchPath, rewrite methods register(), unRegister(), exit(), nextPath() to fix different functionalities that end3 
+       should has, and override the enter(); And rewrite method move() in TreasureHunter in that able to update the direction 
+       after check whether it is ok to enter or not and delete the second if statement. 
+     2.Change all java files from default to public, add serialVersionUID.
+     3.delete SwitchStraight() and SwitchCorner(), change the setPath() to setCurrentPath() and add getCurrentPath()
 ######### 
 # Step 6
 
@@ -33,88 +48,119 @@ Code affected: ColorUtils.java, Treasure.java
 
 Flaw: Classes that are unnecessary for this program
 
-Fix: Remove redundant .java file
+Fix: Remove unnecessary .java file
 ######### 
 # Step 7
 
-Code affected: Person.java, Person1.java, Person2.java
+Code affected: CornerPath.java, CrossPath.java, StraightPath.java, TwoEndPath.java
+               EmptyPath.java,SwitchPath.java, Path.java, all ***Path.java and all **Path.java
 
-Flaw: Redundant Person1.java and Person2.java for this program
+Flaw: They have two constructor, one of them are unnecessary
 
-Fix: Remove Person1.java, Person2.java and instance variable(totalWeight, forward) that are not used in Person.java, and implement addToPath() in Person.java
+Fix: delete the unnecessary constructor and make realted adjustments in the class
 ######### 
 # Step 8
 
 Code affected: All .java file that has a hierarchy relationship with Path
 
-Flaw: 1.Path should be an abstract class, access control problem; 2.There are unneeded constructor in ***Path.java and **Path.java that take in only Map T as input
+Flaw: 1.Path should be an abstract class, access control problem; 
+      2.same validDir() has appear in all the children class of Path
+      3.the variable name in Path is not proper
 
-Fix: 1.Make them abstraction(exitOK(), register(), unRegister(), exit(), nextPath(), getDirectionInfo(), initCoordinates()) in Path, and make notations in the related class due to Path become abstract(put override above the related method to indicate the implementation of abstract method) 2.delete the unneeded constructor in these classes.
+Fix: 1.Make them abstraction(exitOK(), register(), unRegister(), exit(), nextPath(), getDirectionInfo(), initCoordinates()) in Path, 
+      and make notations in the related class due to Path become abstract(put override above the related method to indicate the 
+      implementation of abstract method)
+     2.Write a validDir() in Path for inheritance.
+     3.change variable name to be more clear.
 ######### 
 # Step 9
 
-Code affected: Direction.java, and all .java file that will call Direction.java
+Code affected: Person.java, Person1.java, Person2.java
 
-Flaw: The structure of this code is gross and we need a more neat way write this class
+Flaw: Redundant Person1.java and Person2.java for this program
 
-Fix: Using enumerated type and add a DirEnum.java, and make adjustments	to all .java file that need to call Direction.java
+Fix: Remove Person1.java, Person2.java and delete instance variable(totalWeight, forward) 
+     that are not used in Person.java, and implement addToPath() in Person.java
 ######### 
 # Step 10
 
-Code affected: Person.java
+Code affected: Direction.java, and all .java file that will call Direction.java
 
-Flaw: We need to consider more about the change of speed, there is no limit for deceleration and there is no check if deceleration is valid(e.g.if the speed is less than 2, then we should not be able to decelerate it again), thus this will cause error
+Flaw: The new Object is being built everytime a Direction is being called, it is not
+      a good structure in Direction
 
-Fix: Add limit for all methods related to the deceleration of speed and check if it is valid to decelerate before executing
-
+Fix: Using enumerated type and add a DirEnum.java, and make adjustments	to all .java 
+     file that need to call Direction.java
 ######### 
 # Step 11
 
 Code affected: Files related with GridLoc.java(i.e. classes call GridLoc)
 
-Flaw: 1.Wrong access control, the instance variables should be private; 2.From Java naming convention, GridLoc is not a proper name for this class 
+Flaw: 1.Wrong access control, the instance variables should be private; 
+      2.From Java naming convention, GridLoc is not a proper name for this class 
 
-Fix: 1.Add access control(public to private) and add setter and getter methods; 2.rename it to GridLocation, and make updates to all .java file that use GridLocation.java
+Fix:  1.Add access control(public to private) and add setter and getter methods; 
+      2.rename it to GridLocation, and make updates to all .java file that use GridLocation.java
 ######### 
 # Step 12
 
 Code affected: Person.java, TreasureHunter.java
 
-Flaw: 1.Code is not clean that has useless part in methods and unused instance variables; 2.not proper assess control for instance  variables
+Flaw: 1.Code is not clean that has useless part in methods and unused instance variables; 
+      2.not proper assess control for instance  variables
 
-Fix: 1.delete useless code and instance variables; 2. set public instance variables to private
+Fix: 1.delete useless code and instance variables; 
+     2.set public instance variables to private
 ######### 
 # Step 13
 
 Code affected: MapPanel.java
 
-Flaw: 1.Not appropriate access control 2.Input name is not appropriate in addToPanel()
+Flaw: 1.Not appropriate access control 
+      2.Input name is not appropriate in addToPanel()
+      3.Missing a constructor
 
-Fix: 1.Add access control, make instance variable to private; 2.change the input name.
+Fix: 1.Add access control, make instance variable to private; 
+     2.change the input name.
+     3.write a constructor
 ######### 
 # Step 14
 
 Code affected: Map.java
 
-Flaw: 1.The code is not clean and has useless parts; 2.Not appropriate access control 
+Flaw: 1.the MAX_PATHS should be static
+      2.missing a static variable for record MAX_Persons
+      3.the whole structure of this class is not good and it is hard
+        to read
 
-Fix: 1.Refactor redundant and unclean code; 2.Add access control; 
+Fix: 1.make it to be static
+     2.add a static variable for MAX_Persons
+     3.Refarcotr all code
 ######### 
 # Step 15
 
-Code affected: IslandSimulation.java, Person.java
+Code affected: Person.java
 
-Flaw: 1.The code is not clear to demonstrate the functionalities of IslandSimulation, and it has some useless code for this program; 2.Person’s constructor should have a speed instance variable to be able to initialize different speed. 
+Flaw: We need to consider more about the change of speed, there is no limit for 
+      deceleration and there is no check if deceleration is valid(e.g.if the speed 
+      is less than 2, then we should not be able to decelerate it again), 
+      thus this will cause error
 
-Fix: 1.Refactor the code and delete the useless code in IslandSimulation; 2. Add speed input to constructor in Person.
+Fix: Add limit for all methods related to the deceleration of speed and check if 
+     it is valid to decelerate before executing
 ######### 
 # Step 16
 
-Code affected: IslandSimulation.java
+Code affected: IslandSimulation.java, Person.java
 
-Flaw: Wrong about how to construct a Person since Person has already be updated to have three inputs for constructor
+Flaw: 1.The code is not correct to demonstrate the functionalities of IslandSimulation 
+        and run the program, and it has some useless code for this program; 
+      2.Person’s constructor should have a speed instance variable to be able 
+        to initialize different speed. 
 
-Fix: Change to the correct way to construct Person.
+Fix: 1.Refactor the code and delete the useless code in IslandSimulation, built a constructor
+       for IslandSimulation for being able to write a main method in a more clear way; 
+     2.Add speed input when calling constructor of Person.
 ######### 
 # Step 17
 
@@ -126,14 +172,21 @@ Fix: Refactor the code, add four static final Directions to be used as return fo
 ######### 
 # Step 18
 
-Code affected: all ***Path.java
+Code affected: EWNPath.java, EWSPath.java, NSEPath.java, NSWPath.java, SNEPath.java, SNWPath.java
+               WENPath.java, WESPath.java
 
-Flaw: There are some code smells.
+Flaw:There are some code smells and the code can be more reasonable.
 
 Fix: Make all enter() synchronized methods for preventing thread interference and memory consistency errors
 ######### 
 # Step 19
 
+Code affected: all .java files
+
+add necessary javadoc and comments, especially for the code that has major adjustments
+######### 
+# Step 20
+
 Code affected: Map.java
 
-Add 6 new grids
+Add 6 new grids and add necessary javadoc and comments

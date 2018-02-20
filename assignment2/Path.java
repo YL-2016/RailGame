@@ -137,7 +137,6 @@ public abstract class Path extends Canvas {
 			System.err.println(getDirectionInfo() + " " + direction);
 			Exception e = new Exception();
 			e.printStackTrace(System.out);
-
 			return false;
 		}
 

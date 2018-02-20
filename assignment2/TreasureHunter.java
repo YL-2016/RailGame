@@ -3,7 +3,7 @@ import java.awt.geom.Ellipse2D;
 
 /*
 
- The TreasureHunter class. It has weight, c, and can draw()
+ The TreasureHunter class. It has c, and can draw()
  and move().
 
  */

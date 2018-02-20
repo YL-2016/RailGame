@@ -38,7 +38,6 @@ public class IslandSimulation {
 				2));
 		island.addPlayer(playerB, Direction.SOUTH, new GridLocation(
 				1, 5));
-
 		island.play();
 	}
 
