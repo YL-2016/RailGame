@@ -41,9 +41,10 @@ public class MapPanel extends Panel {
 		return new Insets(10, 10, 10, 10);
 	}
 
-	// update
-	// ------------------------------------------------------------------
-	// Update the display; tell all my Paths to update themselves.
+	/**
+	 * Update the display; tell all my Paths to update themselves.
+	 * @param g the Graphics
+	 */
 	@Override
 	public void update(Graphics g) {
 		Rectangle rec = getBounds();

@@ -9,7 +9,11 @@ public class WESPath extends SwitchPath {
 	 * 
 	 */
 	private static final long serialVersionUID = -4283767017166560122L;
-
+	/**
+	 * Construct a WESPath in a specified location
+	 * @param loc the loctaion that this path should be placed
+	 * @param map A Map object is made up of Paths, and has zero or more people in it.
+	 */
 	public WESPath(GridLocation loc, Map map) {
 		super(Direction.WEST, Direction.EAST, Direction.SOUTH, loc, map);
 		startAngle = 0;
@@ -24,7 +28,12 @@ public class WESPath extends SwitchPath {
 		x3 = -0.5;
 		y3 = 0.5;
 	}
-
+	/**
+	 * 	Return true if d is valid for a TreasureHunter to this Path, return false and
+	 * 	print an error otherwise.
+	 * @param newTreasureHunter a TreasureHunter
+	 * @return if the exit exists at a certain direction
+	 */
 	@Override
 	public synchronized boolean enter(TreasureHunter newTreasureHunter) {
 		DirEnum nextDir = getNextDirEnum(newTreasureHunter);

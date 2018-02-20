@@ -27,12 +27,22 @@ public abstract class Path extends Canvas {
 	private GridLocation location; // location
 	private Map theMap; // theMap
 
+	/**
+	 * Create a Path without a location
+	 * @param map the Map
+	 */
 	public Path(Map map) {
 		theMap = map;
 		isOccupied = false;
 		setSize(size, size);
 	}
 
+	/**
+	 * Create a Path with specified location and Map, and
+	 * set the isoccupied to false
+	 * @param loc the location of the Path
+	 * @param map the Map
+	 */
 	public Path(GridLocation loc, Map map) {
 		location = loc;
 		theMap = map;
@@ -40,24 +50,40 @@ public abstract class Path extends Canvas {
 		initCoordinates();
 	}
 
+	// to modified a path has treasure
 	public void placeTreasure() {
 		hasTreasure = true;
 	}
 
-	// Return true iff there is a treasure hunter on me.
+	/**
+	 * Return true iff there is a treasure hunter on me.
+	 * @return true iff there is a treasure hunter on me.
+	 */
 	public boolean isOccupied() {
 		return isOccupied;
 	}
 
+	/**
+	 * Set the location of the Path
+	 * @param loc the location of the Path
+	 */
 	public void setGridLocation(GridLocation loc) {
 		location = loc;
 	}
 
+	/**
+	 * Return location of the Path
+	 * @return location of the Path
+	 */
 	public GridLocation getGridLocation() {
 		return location;
 	}
 
-	// Redraw myself.
+
+	/**
+	 * Redraw myself.
+	 * @param g the Graphics
+	 */
 	public void draw(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 
@@ -80,8 +106,12 @@ public abstract class Path extends Canvas {
 		}
 	}
 
-	// Register that a Person is on me. Return true if successful,
-	// false otherwise.
+	/**
+	 * Register a Person that is on Path, true if enter successfully, otherwise false
+	 * Set isOccupied to true and currentTreasureHunter to be newTreasureHunter
+	 * @param newTreasureHunter the TreasureHunter going to enter the Path
+	 * @return true if enter successfully, otherwise false
+	 */
 	public synchronized boolean enter(TreasureHunter newTreasureHunter) {
 		isOccupied = true;
 		currentTreasureHunter = newTreasureHunter;
@@ -96,41 +126,72 @@ public abstract class Path extends Canvas {
 		return true;
 	}
 
-	// Register that a Person is no longer on me.
+
+	/**
+	 * Register that a Person is no longer on me.
+	 */
 	public void leave() {
 		isOccupied = false;
 		repaint();
 	}
 
-	// Update my display.
+	/**
+	 * update my display
+	 * @param g the Graphics
+	 */
 	@Override
 	public void paint(Graphics g) {
 		draw(g);
 	}
 
-	// Return true if d is a valid direction for me.
+	/**
+	 * Return true if d is a valid direction for me.
+	 * @param direction a Direction
+	 * @return Return true if d is a valid direction for me.
+	 */
 	public abstract boolean exitOK(Direction direction);
 
-	// Register that Path r is in Direction d.
+
+	/**
+	 * Register that Path r is in Direction d.
+	 * @param path the Path that to be register a certain direction
+	 * @param direction a direction that is to be registered
+	 */
 	public abstract void register(Path path, Direction direction);
 
-	// Register that there is no Path in Direction d.
+	/**
+	 * Register that there is no Path in Direction d.
+	 * @param direction the direction that to be unregistered
+	 */
 	public abstract void unRegister(Direction direction);
 
-	// Given that d is the Direction from which a TreasureHunter entered,
-	// report where the TreasureHunter will exit.
+	/***
+	 * 	Given that d is the Direction from which a TreasureHunter entered
+	 * 	report where the TreasureHunter will exit.
+	 * @param direction the direction that currently entered
+	 * @return the exit direction
+	 */
 	public abstract Direction exit(Direction direction);
 
-	// Given that d is the Direction from which a TreasureHunter entered,
-	// report which Path is next.
+	/**
+	 * Given that d is the Direction from which a TreasureHunter entered,
+	 * report which Path is next.
+	 * @param direction the direction of a TreasureHunter entered
+	 * @return the next Path
+	 */
 	public abstract Path nextPath(Direction direction);
 
 	public abstract String getDirectionInfo();
 
 	protected abstract void initCoordinates();
 
-	// Return true if d is valid for this Path, return false and
-	// print an error otherwise.
+
+	/**
+	 * 	Return true if d is valid for this Path, return false and
+	 * 	print an error otherwise.
+	 * @param direction a direction
+	 * @return if the exit exists at a certain direction
+	 */
 	protected boolean validDir(Direction direction) {
 		if (!exitOK(direction)) {
 			System.err.print("exit(): Not a valid dir for this piece: ");

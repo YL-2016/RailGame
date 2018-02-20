@@ -18,12 +18,22 @@ public class Person extends Thread {
 	// The Map on which I am running.
 	private Map theMap;
 
+	/**
+	 * Create a person with specified id and speed
+	 * @param threadName a treadName
+	 * @param id a person id
+	 * @param speed a certain speed
+	 */
 	public Person(String threadName, int id, long speed) {
 		super(threadName);
 		treasureHunter = new TreasureHunter(id);
 		delay = speed;
 	}
 
+	/**
+	 *
+	 * @return the person's score
+	 */
 	public String getScoreInfo() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("Player " + treasureHunter.getId() + ": ").append(
@@ -32,7 +42,14 @@ public class Person extends Thread {
 		return sb.toString();
 	}
 
-	// Add me to Map T at location loc moving in direction dir.
+
+
+	/**
+	 * Add me to Map T at location loc moving in direction dir.
+	 * @param map the Map i am in
+	 * @param dir a direction
+	 * @param loc a location
+	 */
 	public void addIntoMap(Map map, Direction dir, GridLocation loc) {
 		treasureHunter.setDirection(dir);
 
@@ -41,30 +58,45 @@ public class Person extends Thread {
 		theMap.setHunderInfo(loc, treasureHunter);
 	}
 
-	// Halve my delay.
+
+	/**
+	 * Halve my delay.
+	 */
 	public void accelerateALot() {
 		if (delay / 2 >= 1) {
 			delay /= 2;
 		}
 	}
 
-	// Double my delay.
+
+	/**
+	 * Double my delay.
+	 */
 	public void decelerateALot() {
 		delay *= 2;
 	}
 
-	// Speed up by a factor of 20ms.
+
+	/**
+	 * Speed up by a factor of 20ms.
+	 */
 	public void accelerate() {
 		if (delay - 20 >= 1) {
 			delay -= 20;
 		}
 	}
 
-	// Slow down by a factor of 20ms.
+
+	/**
+	 * Slow down by a factor of 20ms.
+	 */
 	public void decelerate() {
 		delay += 20;
 	}
 
+	/**
+	 * move the Person based on the delay
+	 */
 	public void run() {
 		while (true) {
 			treasureHunter.move();

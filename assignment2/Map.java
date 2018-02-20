@@ -38,7 +38,10 @@ public class Map extends Frame {
 	// The following label is used to display the scores of the TreasureHunters.
 	private Label statusLabel;
 
-	// Set up a new, simple Map.
+
+	/**
+	 * 	Set up a new, simple Map.
+	 */
 	public Map() {
 		buildGameLayout();
 		spawnPaths();
@@ -118,7 +121,10 @@ public class Map extends Frame {
 		mapPanel.addToPanel(paths);
 	}
 
-	// Add the buttons for placing Paths.
+
+	/**
+	 * Add the buttons for placing Paths.
+	 */
 	private void buildGameLayout() {
 		mapPanel = new MapPanel();
 		mapPanel.setBackground(new Color(152, 251, 152));
@@ -203,8 +209,11 @@ public class Map extends Frame {
 		return false;
 	}
 
-	// If test and r1 != null and r1.exitOK(r1), connect or unrester
-	// r1 and r2 depending on whether r2's exits match r1's.
+
+	/**
+	 * 	If test and r1 != null and r1.exitOK(r1), connect or
+	 * 	unrester r1 and r2 depending on whether r2's exits match r1's.
+	 */
 	private void registerOrUnRegister(boolean flag, Path r1, Path r2,
 			Direction d) {
 		if (flag && r1 != null && r1.exitOK(d)) {
@@ -216,7 +225,12 @@ public class Map extends Frame {
 		}
 	}
 
-	// Connect the Path at (row, col) to its neighbours.
+
+	/**
+	 * Connect the Path at (row, col) to its neighbours.
+	 * @param row the row data
+	 * @param col the col data
+	 */
 	private void connectPath(int row, int col) {
 		Path r = paths[row][col];
 
@@ -238,13 +252,24 @@ public class Map extends Frame {
 		}
 	}
 
-	// Connect paths r1 and r2; r2 is in direction d from r1.
+
+	/**
+	 * Connect paths path1 and path2; path2 is in direction d from path1.
+	 * @param path1 the Path that is from path1 to path2
+	 * @param path2 the Path that is from path1 to path2
+	 * @param direction the direction from path2 to path1
+	 */
 	private void connectPaths(Path path1, Path path2, Direction direction) {
 		path1.register(path2, direction);
 		path2.register(path1, direction.getOpposite());
 	}
 
-	// Add e to the path at location loc.
+
+	/**
+	 * Add e to the path at location loc.
+	 * @param loc the certain location
+	 * @param hunter the TreasureHunter
+	 */
 	public void setHunderInfo(GridLocation loc, TreasureHunter hunter) {
 		int row = loc.getRow();
 		int col = loc.getCol();
@@ -253,23 +278,28 @@ public class Map extends Frame {
 		hunter.setCurrentPath(paths[row][col]);
 	}
 
-	// paint
-	// ------------------------------------------------------------------
-	// Paint the display.
+	/**
+	 * Paint the display
+	 * @param g the Graphics
+	 */
 	@Override
 	public void paint(Graphics g) {
 		update(g);
 	}
 
-	// update
-	// ------------------------------------------------------------------
-	// Update the display; tell all my Paths to update themselves.
+	/**
+	 * Update the display; tell all my Paths to update themselves.
+	 * @param g the Graphics
+	 */
 	@Override
 	public void update(Graphics g) {
 		mapPanel.repaint();
 	}
 
-	// Add T to myself.
+	/**
+	 * add person to the personlist
+	 * @param person the person added
+	 */
 	public void addPerson(Person person) {
 		personList[numberOfPersons++] = person;
 	}

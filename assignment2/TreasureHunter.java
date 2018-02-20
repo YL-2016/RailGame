@@ -24,44 +24,79 @@ public class TreasureHunter {
 	// The direction in which I entered the current Path.
 	private Direction dir;
 
+	/**
+	 * Create a TreasureHunter with a specified id
+	 * and set the color to blue and initialize the score to 0
+	 * @param id the id
+	 */
 	public TreasureHunter(int id) {
 		this.id = id;
 		color = Color.blue;
 		score = 0;
 	}
 
+	/**
+	 * return the TreasureHunter's id
+	 * @return the TreasureHunter's id
+	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * Add up the score
+	 */
 	public void plusOneScore() {
 		++score;
 	}
 
+	/**
+	 * return the TreasureHunter's score
+	 * @returnt he TreasureHunter's score
+	 */
 	public int getScore() {
 		return score;
 	}
 
-	// Set me moving in direction d.
+
+	/**
+	 * 	Set me moving in direction d.
+	 * @param direction a direction
+	 */
 	public void setDirection(Direction direction) {
 		dir = direction;
 	}
 
+	/**
+	 * return the direction
+	 * @return the direction
+	 */
 	public Direction getDirection() {
 		return dir;
 	}
 
-	// Place this TreasureHunter on Path r.
+
+	/**
+	 * Place this TreasureHunter on Path r.
+	 * @param path a Path
+	 */
 	public void setCurrentPath(Path path) {
 		currentPath = path;
 	}
 
+	/**
+	 * return the currentPath the TreasureHunter in
+	 * @return the currentPath the TreasureHunter in
+	 */
 	public Path getCurrentPath() {
 		return currentPath;
 	}
 
-	// Move forward one PathPiece; t is the current PathPiece. Tell
-	// all of the cars I am pulling to move as well.
+
+	/**
+	 * Move forward one PathPiece; t is the current PathPiece.
+	 * Tell all of the cars I am pulling to move as well.
+	 */
 	public void move() {
 		Direction nextDir = currentPath.exit(dir).getOpposite();
 		Path nextPath = currentPath.nextPath(dir);
@@ -77,7 +112,11 @@ public class TreasureHunter {
 		}
 	}
 
-	// Redraw myself.
+
+	/**
+	 * Redraw myself.
+	 * @param g the Greaphics
+	 */
 	public void draw(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 

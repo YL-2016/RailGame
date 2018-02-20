@@ -16,13 +16,20 @@ public abstract class StraightPath extends TwoEndPath {
 	// The multipliers for the end points of the StraightPath.
 	protected double x1, y1;
 	protected double x2, y2;
-
+	/**
+	 * Create a StraightPath with specified location, directions and Map
+	 * @param loc the location of the Path
+	 * @param map the Map
+	 */
 	public StraightPath(Direction dir1, Direction dir2, GridLocation loc,
 			Map map) {
 		super(dir1, dir2, loc, map);
 		color = Color.orange;
 	}
-
+	/**
+	 * Redraw myself.
+	 * @param g the Graphics
+	 */
 	@Override
 	public void draw(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;

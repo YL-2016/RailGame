@@ -11,6 +11,9 @@ public class IslandSimulation {
 	// The Paths on which the Persons run.
 	private Map map;
 
+	/**
+	 * Initialize IslandSimulation
+	 */
 	public IslandSimulation() {
 		map = new Map();
 		map.setSize(540, 400);
@@ -18,6 +21,12 @@ public class IslandSimulation {
 		map.setBackground(Color.WHITE);
 	}
 
+	/**
+	 * Add a Person to the game
+	 * @param player the Peron to be added
+	 * @param dir the direction
+	 * @param loc the location
+	 */
 	public void addPlayer(Person player, Direction dir, GridLocation loc) {
 		player.addIntoMap(map, dir, loc);
 	}

@@ -30,7 +30,12 @@ public class EWNPath extends SwitchPath {
 		x3 = 0.5;
 		y3 = -0.5;
 	}
-
+	/**
+	 * 	Return true if d is valid for a TreasureHunter to this Path, return false and
+	 * 	print an error otherwise.
+	 * @param newTreasureHunter a TreasureHunter
+	 * @return if the exit exists at a certain direction
+	 */
 	@Override
 	public synchronized boolean enter(TreasureHunter newTreasureHunter) {
 		DirEnum nextDir = getNextDirEnum(newTreasureHunter);

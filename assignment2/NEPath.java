@@ -10,7 +10,11 @@ public class NEPath extends CornerPath {
 	 * 
 	 */
 	private static final long serialVersionUID = 1574682404470395514L;
-
+	/**
+	 * Construct a NEPath in a specified location
+	 * @param loc the loctaion that this path should be placed
+	 * @param map A Map object is made up of Paths, and has zero or more people in it.
+	 */
 	public NEPath(GridLocation loc, Map map) {
 		super(Direction.NORTH, Direction.EAST, loc, map);
 		startAngle = 180;

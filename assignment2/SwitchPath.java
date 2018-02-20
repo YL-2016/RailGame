@@ -36,7 +36,11 @@ public abstract class SwitchPath extends Path {
 
 	// Whether I am aligned to go straight.
 	protected boolean goingStraight;
-
+	/**
+	 * Create a SwitchPath with specified location, directions and Map
+	 * @param loc the location of the SwitchPath
+	 * @param map the Map
+	 */
 	public SwitchPath(Direction dir1, Direction dir2, Direction dir3,
 			GridLocation loc, Map map) {
 		super(loc, map);
@@ -46,7 +50,11 @@ public abstract class SwitchPath extends Path {
 		end2 = dir2;
 		end3 = dir3;
 	}
-
+	/**
+	 * Return true if d is a valid direction for me.
+	 * @param direction a Direction
+	 * @return Return true if d is a valid direction for me.
+	 */
 	@Override
 	public boolean exitOK(Direction direction) {
 		return direction.isSameDirection(end1)
@@ -58,7 +66,11 @@ public abstract class SwitchPath extends Path {
 	public String getDirectionInfo() {
 		return end1 + " " + end2 + " " + end3 + " ";
 	}
-
+	/**
+	 * Register that Path r is in Direction d.
+	 * @param path the Path that to be register a certain direction
+	 * @param direction a direction that is to be registered
+	 */
 	@Override
 	public void register(Path path, Direction direction) {
 		if (validDir(direction)) {
@@ -71,7 +83,10 @@ public abstract class SwitchPath extends Path {
 			}
 		}
 	}
-
+	/**
+	 * Register that there is no Path in Direction d.
+	 * @param direction the direction that to be unregistered
+	 */
 	@Override
 	public void unRegister(Direction direction) {
 		if (validDir(direction)) {
@@ -84,7 +99,12 @@ public abstract class SwitchPath extends Path {
 			}
 		}
 	}
-
+	/***
+	 * 	Given that d is the Direction from which a TreasureHunter entered
+	 * 	report where the TreasureHunter will exit.
+	 * @param direction the direction that currently entered
+	 * @return the exit direction
+	 */
 	@Override
 	public Direction exit(Direction direction) {
 		if (validDir(direction)) {
@@ -97,7 +117,12 @@ public abstract class SwitchPath extends Path {
 
 		return null;
 	}
-
+	/**
+	 * Given that d is the Direction from which a TreasureHunter entered,
+	 * report which Path is next.
+	 * @param direction the direction of a TreasureHunter entered
+	 * @return the next Path
+	 */
 	@Override
 	public Path nextPath(Direction direction) {
 		if (validDir(direction)) {
@@ -124,7 +149,10 @@ public abstract class SwitchPath extends Path {
 		// If we get this far, I couldn't handle the event
 		return false;
 	}
-
+	/**
+	 * Redraw myself.
+	 * @param g the Graphics
+	 */
 	@Override
 	public void draw(Graphics g) {
 		Rectangle b = getBounds();

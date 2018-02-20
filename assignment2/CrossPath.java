@@ -55,6 +55,11 @@ public class CrossPath extends Path {
 		y4 = 1.0;
 	}
 
+	/**
+	 * Return true if it is ok to exit in certain direction, otherwise false
+	 * @param direction the direction going to exit
+	 * @return true if it is ok to exit, otherwise false
+	 */
 	@Override
 	public boolean exitOK(Direction direction) {
 		return direction.isSameDirection(end1)
@@ -68,6 +73,11 @@ public class CrossPath extends Path {
 		return end1 + " " + end2 + " " + end3 + " " + end4 + " ";
 	}
 
+	/**
+	 * to unregister a specified direction at the end of a CrossPath
+	 * @param path
+	 * @param direction
+	 */
 	@Override
 	public void register(Path path, Direction direction) {
 		if (validDir(direction)) {
@@ -83,6 +93,10 @@ public class CrossPath extends Path {
 		}
 	}
 
+	/**
+	 * to unregister a specified direction at the end of a CrossPath
+	 * @param direction
+	 */
 	@Override
 	public void unRegister(Direction direction) {
 		if (validDir(direction)) {
@@ -98,6 +112,12 @@ public class CrossPath extends Path {
 		}
 	}
 
+	/**
+	 * According to the specified direction at,
+	 * return the direction that Person will exit
+	 * @param direction the spedcified direction
+	 * @return the exit Direction
+	 */
 	@Override
 	public Direction exit(Direction direction) {
 		if (validDir(direction)) {
@@ -115,6 +135,12 @@ public class CrossPath extends Path {
 		return null;
 	}
 
+	/**
+	 * According to the direction that i currently in, must return
+	 * either end1 path or end2 path, or either end3 path or end4 path
+	 * @param direction the direction that a person on currentPath
+	 * @return the next path of certain direction
+	 */
 	@Override
 	public Path nextPath(Direction direction) {
 		if (validDir(direction)) {
@@ -131,6 +157,11 @@ public class CrossPath extends Path {
 
 		return null;
 	}
+
+	/**
+	 * Draw the CrossPath with specified color, coordinates, width and height
+	 * @param g the graphics
+	 */
 
 	@Override
 	public void draw(Graphics g) {
