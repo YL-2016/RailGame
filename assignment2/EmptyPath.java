@@ -12,6 +12,11 @@ public class EmptyPath extends Path {
 	 */
 	private static final long serialVersionUID = 1275207235685976193L;
 
+	/**
+	 * Constructs an EmptyPath take in the currently Map
+	 * @param map A Map object is made up of Paths, and has zero or more people in it.
+	 */
+
 	public EmptyPath(Map map) {
 		super(map);
 	}

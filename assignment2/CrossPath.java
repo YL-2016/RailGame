@@ -27,6 +27,12 @@ public class CrossPath extends Path {
 	private Path neighbour3; // The Path in the direction end3.
 	private Path neighbour4; // The Path in the direction end4.
 
+	/**
+	 * Construct a CrossPath at a specified location
+	 *
+	 * @param loc The location where the CrossPath should be
+	 * @param map A Map object is made up of Paths, and has zero or more people in it.
+	 */
 	public CrossPath(GridLocation loc, Map map) {
 		super(loc, map);
 

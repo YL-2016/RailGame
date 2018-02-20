@@ -131,9 +131,3 @@ Code affected: all ***Path.java
 Flaw: There are some code smells.
 
 Fix: Make all enter() synchronized methods for preventing thread interference and memory consistency errors
-######### 
-# Step 19
-
-Code affected: Map.java
-
-Add 6 new grids

@@ -20,6 +20,11 @@ public class Direction {
 		return direction == dir.getDirection();
 	}
 
+	/**
+	 * Return the opposite direction corresponding to the cases
+	 * @return the corresponding opposite direction
+	 */
+
 	public Direction getOpposite() {
 		switch (direction) {
 		case NORTH:
