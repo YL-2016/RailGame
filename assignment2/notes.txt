@@ -30,8 +30,7 @@ Flaw: 1.Wrong implementations in SwitchPath, although neighbour3 is defined, but
         yellow-magenta-yellow path (i.e. one magenta path is connected with yellow path in both direction). 
         When Person can’t choose have any of those two kinds road, they should stop until the time we make adjustments 
         to the magenta path(make connection). In other word, in this program, there isn’t any situations that Person can 
-        go through the “break path” (grey path). Besides, there is wrong about change direction in move() in TreasureHunter 
-        and the second if statement in move() is useless.
+        go through the “break path” (grey path). Besides, there is wrong about change direction in move() in TreasureHunter and the second if statement in move() is useless.
       2.Not using accurate access control for all classes
       3.SwitchStraight() and SwitchCorner() in TreasureHunter is useless, the method name of setPath() is not clear, 
         and missing getters() for currentPath in TreasureHunter
@@ -173,9 +172,10 @@ Fix: Refactor the code, add four static final Directions to be used as return fo
 # Step 18
 
 Code affected: EWNPath.java, EWSPath.java, NSEPath.java, NSWPath.java, SNEPath.java, SNWPath.java
-               WENPath.java, WESPath.java
+               WENPath.java, WESPath.java, Path.java
 
-Flaw:There are some code smells and the code can be more reasonable.
+Flaw: it may have the situation that if two players reach the same coin at the same time, then both two of them
+      will have an increase in score, which is wrong since one coin can only give one point to one person
 
 Fix: Make all enter() synchronized methods for preventing thread interference and memory consistency errors
 ######### 
